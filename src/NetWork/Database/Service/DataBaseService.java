@@ -1,10 +1,8 @@
 package NetWork.Database.Service;
-
 import NetWork.Database.Interface.IDataBaseService;
 import NetWork.Database.Models.Host;
 import NetWork.Database.Models.NetworkAddress;
 import NetWork.Database.Models.SubnetAddress;
-
 import java.util.ArrayList;
 
 public class DataBaseService implements IDataBaseService {
@@ -12,8 +10,9 @@ public class DataBaseService implements IDataBaseService {
     private static String ConnectionString="";
     @Override
     public boolean Connect() {
-        return false;
+       return false;
     }
+
 
     @Override
     public ArrayList<NetworkAddress> Get_NETWORK_ADDRESSES() {

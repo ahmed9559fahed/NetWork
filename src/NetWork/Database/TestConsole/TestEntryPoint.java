@@ -14,12 +14,12 @@ public class TestEntryPoint {
         System.out.print("Started");
         DataBaseService =new DataBaseService();
         DataBaseService.Connect();
-        ArrayList<NetworkAddress> networks= DataBaseService.Get_NETWORK_ADDRESSES();
+        /*ArrayList<NetworkAddress> networks= DataBaseService.Get_NETWORK_ADDRESSES();
 
         for (NetworkAddress networkAddress:networks)
         {
           System.out.println(networkAddress.GetIPAddress());
-        }
+        }*/
 
     }
 
