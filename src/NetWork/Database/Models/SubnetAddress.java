@@ -1,7 +1,7 @@
 package NetWork.Database.Models;
 public class SubnetAddress {
 
-    public SubnetAddress(String networkId,String subNetAddress,String networkClass,int hosts)
+    public SubnetAddress(int networkId,String subNetAddress,String networkClass,int hosts)
     {
 
         NetworkId1 = networkId;
@@ -9,14 +9,34 @@ public class SubnetAddress {
         NetworkClass =networkClass;
         Hosts=hosts;
     }
+    public SubnetAddress()
+    {
+
+    }
     private int Id;
     private String SubNetAddress;
     private String NetworkClass;
     private int Hosts;
-    private String NetworkId1;
+    private int NetworkId1;
+    private String BitFormat;
 
+    public void setBitFormat(String bitFormat) {
+        BitFormat = bitFormat;
+    }
 
-    public String getNetworkId1() {
+    public String getBitFormat() {
+        return BitFormat;
+    }
+
+    public void setNetworkId1(int networkId1) {
+        NetworkId1 = networkId1;
+    }
+
+    public void setSubNetAddress(String subNetAddress) {
+        SubNetAddress = subNetAddress;
+    }
+
+    public int getNetworkId1() {
         return NetworkId1;
     }
 

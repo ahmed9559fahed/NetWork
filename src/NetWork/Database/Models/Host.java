@@ -2,22 +2,35 @@ package NetWork.Database.Models;
 public class Host {
 
     private int Id;
-    private String SubNetsId;
+    private int SubNetsId;
     private String IPAddress;
     private String Description;
+    private String BitFormat;
 
-    public Host(String ipAddress,String description)
+    public void setBitFormat(String bitFormat) {
+        BitFormat = bitFormat;
+    }
+    public String GetBiTFormat()
+    {
+        return this.BitFormat;
+    }
+
+    public Host(String ipAddress, String description)
     {
 
        IPAddress=ipAddress;
        Description=description;
     }
 
-    public String getSubNetsId() {
+    public Host()
+    {
+
+    }
+    public int getSubNetsId() {
         return SubNetsId;
     }
 
-    public void setSubNetsId(String subNetsId) {
+    public void setSubNetsId(int subNetsId) {
         SubNetsId = subNetsId;
     }
 

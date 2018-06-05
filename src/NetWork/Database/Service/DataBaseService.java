@@ -33,7 +33,6 @@ public class DataBaseService implements IDataBaseService {
         System.out.println(ex.getMessage());
         return false;
         }
-
     }
 
     @Override
@@ -48,8 +47,6 @@ public class DataBaseService implements IDataBaseService {
            System.out.println(e.getMessage());return false ;
        }
     }
-
-
 
     @Override
     public ArrayList<NetworkAddress> Get_NETWORK_ADDRESSES() {
@@ -84,13 +81,69 @@ public class DataBaseService implements IDataBaseService {
 
 
     @Override
-    public ArrayList<SubnetAddress> Get_SubnetAddresses(int netWorkId) {
-        return null;
+    public ArrayList<SubnetAddress> Get_SubnetAddresses(int netWorkId)
+    {
+        try {
+            Connect();
+            ArrayList<SubnetAddress> subnets = new ArrayList<SubnetAddress>();
+            Statement stmt = connection.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM subnet where NetworkID ="+netWorkId);
+
+            while (result.next())
+            {
+                SubnetAddress subnet = new SubnetAddress();
+                subnet.SetNetworkClasse(result.getString(4));
+                subnet.setSubNetAddress(result.getString(2));
+                subnet.setNetworkId1(netWorkId);
+                subnet.setBitFormat(result.getString(5));
+                subnets.add(subnet);
+            }
+            result.close();
+            stmt.close();
+            DisConnect();
+            return subnets;
+
+        }
+        catch (Exception ex)
+        {
+            DisConnect();
+            System.out.println(ex.getMessage());
+            return null;
+        }
+
     }
 
     @Override
-    public ArrayList<Host> Get_Hosts(int subNetId) {
-        return null;
+    public ArrayList<Host> Get_Hosts(int subNetId)
+    {
+        try {
+            Connect();
+            ArrayList<Host> hosts = new ArrayList<Host>();
+            Statement stmt = connection.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM host where SubnetID ="+subNetId);
+
+            while (result.next())
+            {
+                Host subnet = new Host();
+                subnet.setSubNetsId(subNetId);
+                subnet.setIPAddress(result.getString(2));
+                subnet.setBitFormat(result.getString(5));
+                subnet.setDescription(result.getString(4));
+                hosts.add(subnet);
+            }
+            result.close();
+            stmt.close();
+            DisConnect();
+            return hosts;
+
+        }
+        catch (Exception ex)
+        {
+            DisConnect();
+            System.out.println(ex.getMessage());
+            return null;
+        }
+
     }
 
     @Override
