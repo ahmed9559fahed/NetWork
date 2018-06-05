@@ -147,17 +147,128 @@ public class DataBaseService implements IDataBaseService {
     }
 
     @Override
-    public boolean CreateNetWork(NetworkAddress network) {
-        return false;
+    public int CreateNetWork(NetworkAddress network)
+    {
+        try {
+            Connect();
+
+            Statement stmt = connection.createStatement();
+
+            String insertTableSQL = "INSERT INTO network"
+                    + "(IP , Prefix , BitFormat ) "
+                    + "VALUES"
+                    + "('"
+                    +network.GetIPAddress()
+                    +"',"
+                    +network.GetPrefix()
+                    +",'"
+                    +network.getBitFormat()
+                    +"')";
+            PreparedStatement  pstmt = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
+            pstmt.execute();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            int generatedKey = 0;
+            if (rs.next()) {
+                generatedKey = rs.getInt(1);
+            }
+
+            rs.close();
+            pstmt.close();
+            //stmt.executeUpdate(insertTableSQL);
+            DisConnect();
+            return generatedKey;
+
+        }
+        catch (Exception ex)
+        {
+            DisConnect();
+            System.out.println(ex.getMessage());
+            return -1;
+        }
+
     }
 
     @Override
-    public boolean CreateSubNets(ArrayList<SubnetAddress> subnetAddresses) {
-        return false;
+    public int CreateSubNet(SubnetAddress subnetAddress) {
+        try {
+            Connect();
+
+            String insertTableSQL = "INSERT INTO subnet"
+                    + "(IP , NetworkID ,Class, BitFormat ) "
+                    + "VALUES"
+                    + "('"
+                    +subnetAddress.GetSubNetAddress()
+                    +"',"
+                    +subnetAddress.getNetworkId1()
+                    +",'"
+                    +subnetAddress.GetNetworkClasse()
+                    +"','"
+                    +subnetAddress.getBitFormat()
+                    +"')";
+
+            PreparedStatement  pstmt = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
+            pstmt.execute();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            int generatedKey = 0;
+            if (rs.next()) {
+                generatedKey = rs.getInt(1);
+            }
+
+            rs.close();
+            pstmt.close();
+            //stmt.executeUpdate(insertTableSQL);
+            DisConnect();
+            return generatedKey;
+
+
+        }
+        catch (Exception ex)
+        {
+            DisConnect();
+            System.out.println(ex.getMessage());
+            return -1;
+        }
     }
 
     @Override
-    public boolean CreateHosts(ArrayList<Host> hosts) {
-        return false;
+    public int CreateHosts(Host host) {
+        try {
+            Connect();
+
+            String insertTableSQL = "INSERT INTO host"
+                    + "(IP , SubnetID ,Descreption, BitFormat ) "
+                    + "VALUES"
+                    + "('"
+                    +host.getIPAddress()
+                    +"',"
+                    +host.getSubNetsId()
+                    +",'"
+                    +host.getDescription()
+                    +"','"
+                    +host.getBiTFormat()
+                    +"')";
+
+            PreparedStatement  pstmt = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
+            pstmt.execute();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            int generatedKey = 0;
+            if (rs.next()) {
+                generatedKey = rs.getInt(1);
+            }
+
+            rs.close();
+            pstmt.close();
+            //stmt.executeUpdate(insertTableSQL);
+            DisConnect();
+            return generatedKey;
+
+
+        }
+        catch (Exception ex)
+        {
+            DisConnect();
+            System.out.println(ex.getMessage());
+            return -1;
+        }
     }
 }

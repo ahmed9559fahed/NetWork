@@ -10,7 +10,7 @@ public class Host {
     public void setBitFormat(String bitFormat) {
         BitFormat = bitFormat;
     }
-    public String GetBiTFormat()
+    public String getBiTFormat()
     {
         return this.BitFormat;
     }

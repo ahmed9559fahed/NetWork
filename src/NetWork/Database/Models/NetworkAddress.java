@@ -13,6 +13,15 @@ public class NetworkAddress
     private int Id;
     private String IPAddress;
     private int Prefix;
+    private String BitFormat;
+
+    public void setBitFormat(String bitFormat) {
+        BitFormat = bitFormat;
+    }
+
+    public String getBitFormat() {
+        return BitFormat;
+    }
 
     public String GetIPAddress()
     {
