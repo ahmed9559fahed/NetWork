@@ -1,16 +1,15 @@
 package NetWork.Database.Models;
-import java.util.UUID;
 public class SubnetAddress {
 
     public SubnetAddress(String networkId,String subNetAddress,String networkClass,int hosts)
     {
-        Id=UUID.randomUUID()+"";
+
         NetworkId1 = networkId;
         SubNetAddress=subNetAddress;
         NetworkClass =networkClass;
         Hosts=hosts;
     }
-    private String Id;
+    private int Id;
     private String SubNetAddress;
     private String NetworkClass;
     private int Hosts;
@@ -49,13 +48,9 @@ public class SubnetAddress {
         Hosts = hosts;
     }
 
-    public String GetId()
+    public int GetId()
     {
         return this.Id;
     }
 
-    public void SetId(String id)
-    {
-        this.Id=id;
-    }
 }

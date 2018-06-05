@@ -1,15 +1,16 @@
 package NetWork.Database.Models;
-import java.util.UUID;
 public class NetworkAddress
 {
     public NetworkAddress(String iPAddress ,int prefix)
     {
-        Id=UUID.randomUUID()+"";
         IPAddress=iPAddress;
         Prefix=prefix;
     }
+    public NetworkAddress()
+    {
 
-    private String Id;
+    }
+    private int Id;
     private String IPAddress;
     private int Prefix;
 
@@ -29,12 +30,8 @@ public class NetworkAddress
     {
         this.Prefix=prefix;
     }
-    public String GetId()
+    public int GetId()
     {
         return this.Id;
-    }
-    public void SetId(String id)
-    {
-        this.Id=id;
     }
 }

@@ -1,15 +1,14 @@
 package NetWork.Database.Models;
-import java.util.UUID;
 public class Host {
 
-    private String Id;
+    private int Id;
     private String SubNetsId;
     private String IPAddress;
     private String Description;
 
-    public Host(String subNetsId,String ipAddress,String description)
+    public Host(String ipAddress,String description)
     {
-       Id=UUID.randomUUID()+"";
+
        IPAddress=ipAddress;
        Description=description;
     }
@@ -22,7 +21,7 @@ public class Host {
         SubNetsId = subNetsId;
     }
 
-    public String getId() {
+    public int getId() {
         return Id;
     }
 
@@ -36,10 +35,6 @@ public class Host {
 
     public void setDescription(String description) {
         Description = description;
-    }
-
-    public void setId(String id) {
-        Id = id;
     }
 
     public void setIPAddress(String IPAddress) {

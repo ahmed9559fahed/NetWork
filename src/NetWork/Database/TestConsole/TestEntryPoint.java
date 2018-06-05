@@ -11,15 +11,15 @@ public class TestEntryPoint {
     private static  IDataBaseService DataBaseService;
     public static void main(String [] args)
     {
-        System.out.print("Started");
+        System.out.println("Started");
         DataBaseService =new DataBaseService();
-        DataBaseService.Connect();
-        /*ArrayList<NetworkAddress> networks= DataBaseService.Get_NETWORK_ADDRESSES();
+
+        ArrayList<NetworkAddress> networks= DataBaseService.Get_NETWORK_ADDRESSES();
 
         for (NetworkAddress networkAddress:networks)
         {
-          System.out.println(networkAddress.GetIPAddress());
-        }*/
+          System.out.println(networkAddress.GetIPAddress()+"\n"+networkAddress.GetPrefix());
+        }
 
     }
 

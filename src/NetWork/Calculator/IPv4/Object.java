@@ -32,7 +32,8 @@ public class Object {
      *
      * @return
      */
-    public Integer getAvailableHosts() {
+    public Integer getAvailableHost()
+    {
        return 0;
     }
 

@@ -9,9 +9,10 @@ import java.util.ArrayList;
 public interface IDataBaseService {
 
     boolean Connect();
+    boolean DisConnect();
     ArrayList<NetworkAddress> Get_NETWORK_ADDRESSES();
-    ArrayList<SubnetAddress> Get_SubnetAddresses(String netWorkId);
-    ArrayList<Host> Get_Hosts(String subNetId);
+    ArrayList<SubnetAddress> Get_SubnetAddresses(int netWorkId);
+    ArrayList<Host> Get_Hosts(int subNetId);
     boolean CreateNetWork(NetworkAddress network);
     boolean CreateSubNets(ArrayList<SubnetAddress> subnetAddresses);
     boolean CreateHosts(ArrayList<Host> hosts);
