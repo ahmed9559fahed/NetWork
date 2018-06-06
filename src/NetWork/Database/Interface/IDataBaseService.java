@@ -1,5 +1,6 @@
 package NetWork.Database.Interface;
 
+import NetWork.Database.Models.Device;
 import NetWork.Database.Models.Host;
 import NetWork.Database.Models.NetworkAddress;
 import NetWork.Database.Models.SubnetAddress;
@@ -13,9 +14,14 @@ public interface IDataBaseService {
     ArrayList<NetworkAddress> Get_NETWORK_ADDRESSES();
     ArrayList<SubnetAddress> Get_SubnetAddresses(int netWorkId);
     ArrayList<Host> Get_Hosts(int subNetId);
-    int CreateNetWork(NetworkAddress network);
-    int CreateSubNet(SubnetAddress subnetAddress);
-    int CreateHosts(Host host);
+    int AddNetWork(NetworkAddress network);
+    int AddSubNet(SubnetAddress subnetAddress);
+    int AddHost(Host host);
+    boolean DeleteNetWorkById(int networkId);
+    boolean DeleteSubNetById(int subnetAddressId);
+    boolean DeleteHostById(int hostId);
+    Device GetDeviceById(int deviceId);
+
 
 
 }

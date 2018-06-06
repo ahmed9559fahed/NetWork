@@ -20,6 +20,14 @@ public class SubnetAddress {
     private int NetworkId1;
     private String BitFormat;
 
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
     public void setBitFormat(String bitFormat) {
         BitFormat = bitFormat;
     }

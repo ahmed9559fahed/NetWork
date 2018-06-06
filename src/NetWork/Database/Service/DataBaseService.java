@@ -1,5 +1,6 @@
 package NetWork.Database.Service;
 import NetWork.Database.Interface.IDataBaseService;
+import NetWork.Database.Models.Device;
 import NetWork.Database.Models.Host;
 import NetWork.Database.Models.NetworkAddress;
 import NetWork.Database.Models.SubnetAddress;
@@ -60,8 +61,10 @@ public class DataBaseService implements IDataBaseService {
             while (result.next())
             {
                 NetworkAddress network = new NetworkAddress();
+                network.setId(result.getInt(1));
                 network.SetIPAddress(result.getString(2));
                 network.SetPrefix(result.getInt(3));
+                network.setBitFormat(result.getString(4));
                 networks.add(network);
             }
             result.close();
@@ -79,7 +82,6 @@ public class DataBaseService implements IDataBaseService {
     }
 
 
-
     @Override
     public ArrayList<SubnetAddress> Get_SubnetAddresses(int netWorkId)
     {
@@ -92,6 +94,7 @@ public class DataBaseService implements IDataBaseService {
             while (result.next())
             {
                 SubnetAddress subnet = new SubnetAddress();
+                subnet.setId(result.getInt(1));
                 subnet.SetNetworkClasse(result.getString(4));
                 subnet.setSubNetAddress(result.getString(2));
                 subnet.setNetworkId1(netWorkId);
@@ -124,12 +127,14 @@ public class DataBaseService implements IDataBaseService {
 
             while (result.next())
             {
-                Host subnet = new Host();
-                subnet.setSubNetsId(subNetId);
-                subnet.setIPAddress(result.getString(2));
-                subnet.setBitFormat(result.getString(5));
-                subnet.setDescription(result.getString(4));
-                hosts.add(subnet);
+                Host host = new Host();
+                host.setId(result.getInt(1));
+                host.setSubNetsId(subNetId);
+                host.setIPAddress(result.getString(2));
+                host.setBitFormat(result.getString(6));
+                host.setDescription(result.getString(5));
+                host.setDeviceID(result.getInt(4));
+                hosts.add(host);
             }
             result.close();
             stmt.close();
@@ -147,7 +152,7 @@ public class DataBaseService implements IDataBaseService {
     }
 
     @Override
-    public int CreateNetWork(NetworkAddress network)
+    public int AddNetWork(NetworkAddress network)
     {
         try {
             Connect();
@@ -189,7 +194,7 @@ public class DataBaseService implements IDataBaseService {
     }
 
     @Override
-    public int CreateSubNet(SubnetAddress subnetAddress) {
+    public int AddSubNet(SubnetAddress subnetAddress) {
         try {
             Connect();
 
@@ -231,12 +236,12 @@ public class DataBaseService implements IDataBaseService {
     }
 
     @Override
-    public int CreateHosts(Host host) {
+    public int AddHost(Host host) {
         try {
             Connect();
 
             String insertTableSQL = "INSERT INTO host"
-                    + "(IP , SubnetID ,Descreption, BitFormat ) "
+                    + "(IP , SubnetID ,Descreption, BitFormat,DeviceID ) "
                     + "VALUES"
                     + "('"
                     +host.getIPAddress()
@@ -246,6 +251,8 @@ public class DataBaseService implements IDataBaseService {
                     +host.getDescription()
                     +"','"
                     +host.getBiTFormat()
+                    +"','"
+                    +host.getDeviceID()
                     +"')";
 
             PreparedStatement  pstmt = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
@@ -271,4 +278,107 @@ public class DataBaseService implements IDataBaseService {
             return -1;
         }
     }
+
+    @Override
+    public boolean DeleteNetWorkById(int networkId) {
+        try {
+            Connect();
+
+            String deleteNetworkSql = "Delete From network where ID="+networkId;
+            ArrayList<SubnetAddress> subnets=Get_SubnetAddresses(networkId);
+            Connect();
+            Statement  stmt = connection.createStatement();
+            for (SubnetAddress subnet :subnets)
+            {
+                String deleteHostSql = "Delete From host where SubnetID="+subnet.getId();
+                stmt.execute(deleteHostSql);
+            }
+            String deleteSubnetSql = "Delete From subnet where NetworkID="+networkId;
+
+            stmt.execute(deleteSubnetSql);
+            stmt.execute(deleteNetworkSql);
+            stmt.close();
+            DisConnect();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            DisConnect();
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean DeleteSubNetById(int subnetAddressId) {
+        try {
+            Connect();
+
+            String deleteSubnetSql = "Delete From subnet where ID="+subnetAddressId;
+            String deleteHostSql = "Delete From host where SubnetID="+subnetAddressId;
+            Statement  stmt = connection.createStatement();
+            stmt.execute(deleteHostSql);
+            stmt.execute(deleteSubnetSql);
+            stmt.close();
+            DisConnect();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            DisConnect();
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean DeleteHostById(int hostId) {
+        try {
+            Connect();
+
+            String deleteTableSQL = "Delete From host where ID="+hostId;
+
+            Statement  stmt = connection.createStatement();
+            stmt.execute(deleteTableSQL);
+            stmt.close();
+            DisConnect();
+            return true;
+                    }
+        catch (Exception ex)
+        {
+            DisConnect();
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public Device GetDeviceById(int deviceId)
+    {
+
+        try {
+            Connect();
+
+            Statement stmt = connection.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM Device where ID ="+deviceId);
+
+                Device device = new Device();
+                device.setId(deviceId);
+                device.setName(result.getString(2));
+
+            result.close();
+            stmt.close();
+            DisConnect();
+            return device;
+
+        }
+        catch (Exception ex)
+        {
+            DisConnect();
+            System.out.println(ex.getMessage());
+            return null;
+        }
+
+    }
+
 }

@@ -6,6 +6,15 @@ public class Host {
     private String IPAddress;
     private String Description;
     private String BitFormat;
+    private int DeviceID;
+
+    public void setDeviceID(int deviceID) {
+        DeviceID = deviceID;
+    }
+
+    public int getDeviceID() {
+        return DeviceID;
+    }
 
     public void setBitFormat(String bitFormat) {
         BitFormat = bitFormat;
@@ -15,12 +24,11 @@ public class Host {
         return this.BitFormat;
     }
 
-    public Host(String ipAddress, String description)
-    {
-
-       IPAddress=ipAddress;
-       Description=description;
+    public void setId(int id) {
+        Id = id;
     }
+
+
 
     public Host()
     {
