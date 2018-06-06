@@ -2,10 +2,9 @@ package NetWork.GUI.View;
 
 import NetWork.GUI.View.Controls.FlatTextbox;
 import NetWork.GUI.View.Controls.FrameWindow;
-import javax.swing.JTextPane;
+
+import javax.swing.*;
 import javax.swing.text.MaskFormatter;
-import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,8 +12,6 @@ import NetWork.GUI.View.Controls.FlatButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
-import javax.swing.JSeparator;
-import javax.swing.JRadioButton;
 import java.awt.Color;
 
 @SuppressWarnings("serial")
@@ -26,7 +23,8 @@ public class NetworkView extends FrameWindow {
 	public NetworkView() {
 		this.setSize(new Dimension(windowWidth, windowHeight));
 		
-		FrameWindow window = this; 
+		FrameWindow window = this;
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		/*
 		 * HEADLINE

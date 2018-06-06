@@ -4,7 +4,7 @@ import javax.swing.JSeparator;
 
 import NetWork.GUI.View.Controls.FlatButton;
 import NetWork.GUI.View.Controls.FrameWindow;
-import NetWork.Data.Database.Models.Table.NetworkTableModel;
+import NetWork.GUI.View.Controls.Table.NetworkModel;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -18,6 +18,7 @@ import javax.swing.JTable;
 public class MainView extends FrameWindow {
 	private JTable table;
 	public MainView() {
+
 		JSeparator separator = new JSeparator();
 		separator.setBounds(6, 480, 488, 11);
 		getContentPane().add(separator);
@@ -47,7 +48,7 @@ public class MainView extends FrameWindow {
 		panel.setBounds(6, 6, 488, 437);
 		getContentPane().add(panel);
 		
-		table = new JTable(new NetworkTableModel());
+		table = new JTable(new NetworkModel());
 		panel.add(table);
 
 		JScrollPane scrollPane = new JScrollPane(table);
