@@ -9,7 +9,7 @@ import NetWork.GUI.View.Controls.Table.NetworkModel;
 import javax.swing.*;
 
 public abstract class ListView
-        <TableModel extends ITableModel<DatabaseModel>, DatabaseModel extends IDatabaseModel> extends FrameWindow implements IReloadableListView<TableModel, DatabaseModel>
+        <TableModel extends ITableModel<DatabaseModel>, DatabaseModel extends IDatabaseModel> extends FrameWindow implements IReloadableListView<DatabaseModel>
 {
 
     protected JTable table;

@@ -1,27 +1,31 @@
 package NetWork.GUI.View.List;
 
-import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.Data.Database.Models.SubnetAddress;
 import NetWork.Data.Database.Service.DatabaseService;
-
-import javax.swing.*;
 import NetWork.GUI.View.Controls.FlatButton;
 import NetWork.GUI.View.Controls.ListView;
 import NetWork.GUI.View.Controls.Listener.ReloadListView;
+import NetWork.GUI.View.Controls.Table.HostModel;
 import NetWork.GUI.View.Controls.Table.SubnetModel;
-import java.awt.Color;
 
-public class Subnet extends ListView<SubnetModel<SubnetAddress>, SubnetAddress> {
+import javax.swing.*;
+import java.awt.*;
+
+public class Host extends ListView<HostModel<NetWork.Data.Database.Models.Host>, NetWork.Data.Database.Models.Host> {
 
 	protected int networkId;
+	protected int subnetId;
 
-	public Subnet(int networkId) {
+	public Host(int networkId, int subnetId) {
 		this.networkId = networkId;
-		this.tableModel = new SubnetModel(this.networkId);
-		this.reloadTable();
+		this.subnetId = subnetId;
 
-		//TODO Load network model to get ip and prefix to show in title
-		this.setTitle("List of Subnets for " + String.valueOf(this.networkId));
+		//TODO load network and subnet to get title
+		this.setTitle("List of IPs for " + String.valueOf(this.networkId) + " -> " + String.valueOf(this.subnetId));
+
+
+		this.tableModel = new HostModel(this.networkId);
+		this.reloadTable();
 
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -50,13 +54,13 @@ public class Subnet extends ListView<SubnetModel<SubnetAddress>, SubnetAddress> 
 		flatButton.setBounds(176, 454, 138, 35);
 		flatButton.addActionListener(e -> {
 			try {
-				SubnetAddress subnet = this.getSelectedElement();
+				NetWork.Data.Database.Models.Host subnet = this.getSelectedElement();
 
-				DatabaseService.getService().DeleteSubnetById(subnet.getId());
+				//TODO delete IP
 
 				reloadTable();
 			} catch (ArrayIndexOutOfBoundsException aiofbException) {
-				this.ShowError("Please select a valid subnet!");
+				this.ShowError("Please select a valid network!");
 			}
 		});
 
@@ -67,17 +71,6 @@ public class Subnet extends ListView<SubnetModel<SubnetAddress>, SubnetAddress> 
 		FlatButton flatButton_1 = new FlatButton((String) null);
 		flatButton_1.setText("Manage IPs");
 		flatButton_1.setBounds(346, 454, 138, 35);
-		flatButton_1.addActionListener(e -> {
-			try {
-				SubnetAddress subnet = getSelectedElement();
-
-				Host hostView = new Host(networkId, subnet.getId());
-
-				hostView.setVisible(true);
-			} catch (ArrayIndexOutOfBoundsException aiofbException) {
-				this.ShowError("Please select a valid network!");
-			}
-		});
 
 
 		/*

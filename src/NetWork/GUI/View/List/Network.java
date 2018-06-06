@@ -1,6 +1,6 @@
 package NetWork.GUI.View.List;
 
-import javax.swing.JSeparator;
+import javax.swing.*;
 
 import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.Data.Database.Service.DatabaseService;
@@ -9,18 +9,18 @@ import NetWork.GUI.View.Controls.ListView;
 import NetWork.GUI.View.Controls.Listener.ReloadListView;
 import NetWork.GUI.View.Controls.Table.NetworkModel;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 
 @SuppressWarnings("serial")
 public class Network extends ListView<NetworkModel<NetworkAddress>, NetworkAddress> {
 
 	public Network() {
+		//TODO Load network model to get ip and prefix to show in title
+		this.setTitle("List of networks");
+
 		this.tableModel = new NetworkModel();
 		this.reloadTable();
 
