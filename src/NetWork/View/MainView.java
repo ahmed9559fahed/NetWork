@@ -52,7 +52,6 @@ public class MainView extends FrameWindow {
 		
 		table = new JTable(new NetworkTableModel());
 		panel.add(table);
-		
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);

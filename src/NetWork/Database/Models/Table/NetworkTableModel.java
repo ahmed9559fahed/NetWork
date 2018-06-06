@@ -4,7 +4,6 @@ import javax.swing.table.AbstractTableModel;
 
 public class NetworkTableModel extends AbstractTableModel {
     public boolean isCellEditable(int row, int column){
-
         return false;
     }
 

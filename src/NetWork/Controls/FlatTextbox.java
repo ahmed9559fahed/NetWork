@@ -2,12 +2,11 @@ package NetWork.Controls;
 
 import NetWork.Controls.Helper.Color;
 
-import javax.swing.BorderFactory;
-import javax.swing.JTextPane;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
-public class FlatTextbox extends JTextPane{
+public class FlatTextbox extends JFormattedTextField {
 
 	public FlatTextbox() {
 		super();
