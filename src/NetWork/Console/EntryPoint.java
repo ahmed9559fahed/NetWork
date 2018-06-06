@@ -1,8 +1,14 @@
 package NetWork.Console;
 
+import javax.swing.JFrame;
+
+import NetWork.View.MainView;
+
 public class EntryPoint {
 
     public static void main(String[] args) {
-        System.out.println("Hallo Welt!");
+        JFrame frame = new MainView();
+        
+        frame.setVisible(true);
     }
 }

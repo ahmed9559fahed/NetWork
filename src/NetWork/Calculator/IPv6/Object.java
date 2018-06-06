@@ -24,7 +24,7 @@ public class Object {
     }
 
     /**
-     * return the default gateway (default x.x.x.1)
+     * return the default gateway (default x.x.x.1)1
      * @return
      */
     public String getDefaultGateway() {
