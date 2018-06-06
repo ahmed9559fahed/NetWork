@@ -27,6 +27,8 @@ public class NetworkView extends FrameWindow {
 		
 		this.setSize(new Dimension(windowWidth, windowHeight));
 		
+		FrameWindow window = this; 
+		
 		JLabel lblNewLabel = new JLabel("Netzwerk Adresse:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel.setBounds(12, 94, 127, 14);
@@ -52,26 +54,41 @@ public class NetworkView extends FrameWindow {
 		
 		FlatButton btnCancel = new FlatButton((String) null);
 		btnCancel.setText("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				window.setVisible(false);
+				window.dispose();
+			}
+		});
+		
 		btnCancel.setBounds(12, 295, 91, 29);
 		getContentPane().add(btnCancel);
 		
 		FlatButton btnSave = new FlatButton((String) null);
+		
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				window.setVisible(false);
+				window.dispose();
+			}
+		});
 		btnSave.setText("Save");
 		btnSave.setBounds(123, 295, 91, 29);
 		getContentPane().add(btnSave);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(12, 282, 202, 2);
+		separator.setBounds(12, 272, 202, 12);
 		getContentPane().add(separator);
 		
 		JRadioButton rdbtnIpv = new JRadioButton("IPv4");
+		rdbtnIpv.setSelected(true);
 		rdbtnIpv.setBackground(new Color(255, 255, 255));
-		rdbtnIpv.setBounds(12, 54, 55, 23);
+		rdbtnIpv.setBounds(12, 54, 74, 23);
 		getContentPane().add(rdbtnIpv);
 		
 		JRadioButton radioButton = new JRadioButton("IPv6");
 		radioButton.setBackground(new Color(255, 255, 255));
-		radioButton.setBounds(69, 54, 55, 23);
+		radioButton.setBounds(84, 54, 74, 23);
 		getContentPane().add(radioButton);
 		
 		JLabel lblAddNewNetwork = new JLabel("Add new Network");
@@ -80,7 +97,7 @@ public class NetworkView extends FrameWindow {
 		getContentPane().add(lblAddNewNetwork);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 41, 202, 2);
+		separator_1.setBounds(10, 41, 202, 12);
 		getContentPane().add(separator_1);
 	}
 }
