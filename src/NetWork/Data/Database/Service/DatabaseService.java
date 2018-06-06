@@ -18,10 +18,10 @@ public class DatabaseService implements IDataBaseService {
 
     private static DatabaseService instance = null;
 
-    protected String ServerHost = "web.sergo.management:3306";
-    protected String ServerDatabase = "jb_ipcalculater";
-    protected String ServerUsername = "jb_ipcalculater";
-    protected String ServerPassword = "paV4c0_3Kony9*91";
+    protected String ServerHost = "localhost";
+    protected String ServerDatabase = "test";
+    protected String ServerUsername = "root";
+    protected String ServerPassword = "root";
 
     public DatabaseService() {
         this.Connect();
@@ -49,7 +49,7 @@ public class DatabaseService implements IDataBaseService {
             String driverName = DATABASE_DRIVER;
             Class.forName(driverName); // here is the ClassNotFoundException
 
-            String url = "jdbc:mysql://" + this.ServerHost + "/" + this.ServerDatabase;
+            String url = "jdbc:mysql://" + this.ServerHost + "/" + this.ServerDatabase + "?useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
             this.connection = DriverManager.getConnection(url, this.ServerUsername, this.ServerPassword);
 
@@ -90,8 +90,8 @@ public class DatabaseService implements IDataBaseService {
                 NetworkAddress network = new NetworkAddress();
 
                 network.setId(result.getInt(1));
-                network.SetIPAddress(result.getString(2));
-                network.SetPrefix(result.getInt(3));
+                network.setIPAddress(result.getString(2));
+                network.setPrefix(result.getInt(3));
                 network.setBitFormat(result.getString(4));
 
                 networks.add(network);
@@ -180,8 +180,8 @@ public class DatabaseService implements IDataBaseService {
 
             PreparedStatement statement = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(1, network.GetIPAddress());
-            statement.setInt(2, network.GetPrefix());
+            statement.setString(1, network.getIPAddress());
+            statement.setInt(2, network.getPrefix());
             statement.setString(3, network.getBitFormat());
 
             statement.execute();

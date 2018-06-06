@@ -13,8 +13,8 @@ public class TestIPService {
 
         NetworkAddress network=new NetworkAddress();
         network.setBitFormat("11110000.11111111.00000000.11111111");
-        network.SetIPAddress("192.168.112.1");
-        network.SetPrefix(32);
+        network.setIPAddress("192.168.112.1");
+        network.setPrefix(32);
 
         service.AddNetwork(network);
     }

@@ -60,16 +60,20 @@ public class NetworkModel extends AbstractTableModel {
 		return this.rowsCount;
 	}
 
+	public NetworkAddress getRow(int rowIndex) {
+		return this.resultSet.get(rowIndex);
+	}
+
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		NetworkAddress network = this.resultSet.get(rowIndex);
 
 		switch (columnIndex) {
 			case 0: {
-				return network.GetIPAddress();
+				return network.getIPAddress();
 			}
 			case 1: {
-				return network.GetPrefix();
+				return network.getPrefix();
 			}
 			default: {
 				return "";

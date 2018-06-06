@@ -4,17 +4,31 @@ import NetWork.GUI.View.Controls.Helper.Color;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.text.MaskFormatter;
 
 @SuppressWarnings("serial")
 public class FlatTextbox extends JFormattedTextField {
 
+	public FlatTextbox(MaskFormatter mf) {
+		super(mf);
+	}
+
 	public FlatTextbox() {
 		super();
 		
-		Border border = BorderFactory.createLineBorder(Color.BORDER_GREY.getAWTColor());
-		this.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		this.displayDefaultBorder();
 
 		this.setBackground(Color.WHITE);
+	}
+
+	public void displayDefaultBorder() {
+		Border border = BorderFactory.createLineBorder(Color.BORDER_GREY.getAWTColor());
+		this.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+	}
+
+	public void displayErrorBorder() {
+		Border border = BorderFactory.createLineBorder(Color.DANGER.getAWTColor());
+		this.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 	}
 
 	public void setBackground(Color color) {
