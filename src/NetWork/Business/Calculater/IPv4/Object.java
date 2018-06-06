@@ -1,4 +1,4 @@
-package NetWork.Business.calculater.IPv4;
+package NetWork.Business.Calculater.IPv4;
 
 public class Object {
 

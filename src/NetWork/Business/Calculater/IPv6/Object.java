@@ -1,4 +1,4 @@
-package NetWork.Business.calculater.IPv6;
+package NetWork.Business.Calculater.IPv6;
 
 import com.github.jgonian.ipmath.Ipv6;
 
