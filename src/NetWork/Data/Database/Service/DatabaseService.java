@@ -14,11 +14,11 @@ public class DatabaseService implements IDataBaseService {
 
     private Connection connection;
 
-    private final static String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
+    private final static String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
 
     private static DatabaseService instance = null;
 
-    protected String ServerHost = "web.sergo.management";
+    protected String ServerHost = "web.sergo.management:3306";
     protected String ServerDatabase = "jb_ipcalculater";
     protected String ServerUsername = "jb_ipcalculater";
     protected String ServerPassword = "paV4c0_3Kony9*91";
