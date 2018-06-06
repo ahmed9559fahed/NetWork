@@ -1,10 +1,30 @@
 package NetWork.GUI.View.Controls.Table;
 
+import NetWork.Data.Database.Models.NetworkAddress;
+
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 
 public class NetworkModel extends AbstractTableModel {
 
 	protected String[] columnNames = {"IP Address", "Prefix"};
+
+	protected ArrayList<NetworkAddress> resultSet;
+
+	protected int rowsCount;
+
+	public void Load() {
+
+		//Datenbank Abfrage
+		resultSet = new ArrayList<NetworkAddress>();
+
+		this.rowsCount = this.getArraySize();
+	}
+
+	public int getArraySize() {
+		return this.resultSet.size();
+	}
+
 
 	/**
 	 * Return Column names
@@ -37,13 +57,11 @@ public class NetworkModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 2;
+		return this.rowsCount;
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
 		return "sdfsd";
 	}
 }
