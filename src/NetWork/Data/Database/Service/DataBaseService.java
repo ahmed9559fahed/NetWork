@@ -134,7 +134,7 @@ public class DataBaseService implements IDataBaseService {
                 host.setIPAddress(result.getString(2));
                 host.setBitFormat(result.getString(6));
                 host.setDescription(result.getString(5));
-                host.setDeviceID(result.getInt(4));
+                host.setDevice(result.getInt(4));
                 hosts.add(host);
             }
             result.close();
@@ -253,7 +253,7 @@ public class DataBaseService implements IDataBaseService {
                     +"','"
                     +host.getBiTFormat()
                     +"','"
-                    +host.getDeviceID()
+                    +host.getDevice()
                     +"')";
 
             PreparedStatement  pstmt = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);

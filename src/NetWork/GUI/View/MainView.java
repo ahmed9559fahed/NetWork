@@ -47,13 +47,15 @@ public class MainView extends FrameWindow {
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(6, 6, 488, 437);
 		getContentPane().add(panel);
-		
-		table = new JTable(new NetworkModel());
+
+		NetworkModel networkModel = new NetworkModel();
+		networkModel.Load();
+		table = new JTable(networkModel);
 		panel.add(table);
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);
-		
+
 		panel.add(scrollPane);
 		
 		

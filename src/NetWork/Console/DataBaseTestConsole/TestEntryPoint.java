@@ -55,21 +55,21 @@ public class TestEntryPoint {
             host1.setIPAddress("192.168.1.1");
             host1.setSubNetsId(subnetID);
             host1.setDescription("Bernd PC1");
-            host1.setDeviceID(3);
+            host1.setDevice(1);
             host1.setBitFormat("11111111.00000000.11111111.00000000");
 
             Host host2=new Host();
             host2.setIPAddress("192.168.1.1");
             host2.setSubNetsId(subnetID);
             host2.setDescription("Bernd PC2");
-            host2.setDeviceID(2);
+            host2.setDevice(2);
             host2.setBitFormat("11111111.00000000.11111111.00000000");
 
             Host host3=new Host();
             host3.setIPAddress("192.168.1.1");
             host3.setSubNetsId(subnetID);
             host3.setDescription("Bernd PC3");
-            host3.setDeviceID(1);
+            host3.setDevice(2);
             host3.setBitFormat("11111111.00000000.11111111.00000000");
 
             hosts.add(host1);
@@ -103,7 +103,7 @@ public class TestEntryPoint {
         ArrayList<Host> hosts= DataBaseService.Get_Hosts(1);
         for (Host host:hosts)
         {
-            System.out.println(host.getIPAddress()+"\t"+host.getDescription()+"\t"+host.getDeviceID());
+            System.out.println(host.getIPAddress()+"\t"+host.getDescription()+"\t"+host.getDevice());
         }
 
         DataBaseService.DeleteHostById(1);

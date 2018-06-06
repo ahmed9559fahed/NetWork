@@ -6,14 +6,14 @@ public class Host {
     private String IPAddress;
     private String Description;
     private String BitFormat;
-    private int DeviceID;
+    private int DeviceId;
 
-    public void setDeviceID(int deviceID) {
-        DeviceID = deviceID;
+    public void setDevice(int device) {
+        DeviceId = device;
     }
 
-    public int getDeviceID() {
-        return DeviceID;
+    public int getDevice() {
+        return DeviceId;
     }
 
     public void setBitFormat(String bitFormat) {
@@ -27,8 +27,6 @@ public class Host {
     public void setId(int id) {
         Id = id;
     }
-
-
 
     public Host()
     {
