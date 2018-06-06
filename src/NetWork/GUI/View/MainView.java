@@ -6,6 +6,9 @@ import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.Data.Database.Service.DatabaseService;
 import NetWork.GUI.View.Controls.FlatButton;
 import NetWork.GUI.View.Controls.FrameWindow;
+import NetWork.GUI.View.Controls.Interface.IReloadableListView;
+import NetWork.GUI.View.Controls.ListView;
+import NetWork.GUI.View.Controls.Listener.ReloadListView;
 import NetWork.GUI.View.Controls.Table.NetworkModel;
 
 import java.awt.Color;
@@ -19,15 +22,11 @@ import javax.swing.JTable;
 
 
 @SuppressWarnings("serial")
-public class MainView extends FrameWindow {
-
-	private JTable table;
-
-	protected NetworkModel networkTableModel;
+public class MainView extends ListView<NetworkModel> {
 
 	public MainView() {
-		this.networkTableModel = new NetworkModel();
-		this.networkTableModel.Load();
+		this.tableModel = new NetworkModel();
+		this.tableModel.Load();
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(6, 480, 488, 11);
@@ -39,42 +38,8 @@ public class MainView extends FrameWindow {
 
 			view.setVisible(true);
 
-			view.addWindowListener(new WindowListener() {
-				@Override
-				public void windowOpened(WindowEvent e) {
-
-				}
-
-				@Override
-				public void windowClosing(WindowEvent e) {
-
-				}
-
-				@Override
-				public void windowClosed(WindowEvent e) {
-					reloadTable();
-				}
-
-				@Override
-				public void windowIconified(WindowEvent e) {
-
-				}
-
-				@Override
-				public void windowDeiconified(WindowEvent e) {
-
-				}
-
-				@Override
-				public void windowActivated(WindowEvent e) {
-
-				}
-
-				@Override
-				public void windowDeactivated(WindowEvent e) {
-
-				}
-			});
+			ReloadListView listener = new ReloadListView(this, view);
+			view.addWindowListener(listener);
 		});
 
 		btnNewNetwork.setBounds(6, 505, 132, 34);
@@ -83,8 +48,7 @@ public class MainView extends FrameWindow {
 		FlatButton btnDeleteNetwork = new FlatButton("Delete Network");
 		btnDeleteNetwork.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int selectedRow = table.getSelectedRow();
-				NetworkAddress network = networkTableModel.getRow(selectedRow);
+				NetworkAddress network = getSelectedElement();
 
 				DatabaseService.getService().DeleteNetworkById(network.GetId());
 
@@ -96,8 +60,16 @@ public class MainView extends FrameWindow {
 		getContentPane().add(btnDeleteNetwork);
 		
 		FlatButton btnShowSubnets = new FlatButton("Show Subnets");
+		btnShowSubnets.addActionListener(e -> {
+			NetworkAddress network = getSelectedElement();
+
+			SubnetListView subnetView = new SubnetListView(network.getId());
+
+			subnetView.setVisible(true);
+		});
+
 		btnShowSubnets.setForeground(Color.WHITE);
-		btnShowSubnets.setBounds(362, 503, 132, 34);
+		btnShowSubnets.setBounds(352, 505, 132, 34);
 		getContentPane().add(btnShowSubnets);
 		
 		JPanel panel = new JPanel();
@@ -105,7 +77,7 @@ public class MainView extends FrameWindow {
 		panel.setBounds(6, 6, 488, 437);
 		getContentPane().add(panel);
 
-		table = new JTable(this.networkTableModel);
+		table = new JTable(this.tableModel);
 		panel.add(table);
 
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -115,9 +87,12 @@ public class MainView extends FrameWindow {
 
 		this.setVisible(true);
 	}
-
-	public void reloadTable() {
-		networkTableModel.Load();
-		networkTableModel.fireTableDataChanged();
+	
+	protected NetworkAddress getSelectedElement() {
+		int selectedRow = table.getSelectedRow();
+		NetworkAddress network = tableModel.getRow(selectedRow);
+		
+		return network;
 	}
+
 }

@@ -2,11 +2,12 @@ package NetWork.GUI.View.Controls.Table;
 
 import NetWork.Business.IPService;
 import NetWork.Data.Database.Models.NetworkAddress;
+import NetWork.GUI.View.Controls.Interface.ITableModel;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class NetworkModel extends AbstractTableModel {
+public class NetworkModel extends AbstractTableModel implements ITableModel {
 
 	public NetworkModel()
 	{
