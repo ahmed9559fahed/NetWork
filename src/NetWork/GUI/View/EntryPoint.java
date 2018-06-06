@@ -3,7 +3,7 @@ package NetWork.GUI.View;
 import javax.swing.JFrame;
 
 import NetWork.Data.Database.Service.DatabaseService;
-import NetWork.GUI.View.MainView;
+import NetWork.GUI.View.List.Network;
 
 public class EntryPoint {
 
@@ -12,7 +12,7 @@ public class EntryPoint {
         //Init database
         DatabaseService.getService();
 
-        JFrame frame = new MainView();
+        JFrame frame = new Network();
         
         frame.setVisible(true);
     }

@@ -1,13 +1,14 @@
 package NetWork.GUI.View.Controls.Table;
 
 import NetWork.Business.IPService;
+import NetWork.Data.Database.Interface.IDatabaseModel;
 import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.GUI.View.Controls.Interface.ITableModel;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class NetworkModel extends AbstractTableModel implements ITableModel {
+public class NetworkModel<DatabaseModel extends IDatabaseModel> extends AbstractTableModel implements ITableModel<DatabaseModel> {
 
 	public NetworkModel()
 	{
@@ -24,8 +25,6 @@ public class NetworkModel extends AbstractTableModel implements ITableModel {
 		resultSet = Service.GetNetworks();
 		this.rowsCount = this.resultSet.size();
 	}
-
-
 
 	/**
 	 * Return Column names
@@ -61,8 +60,8 @@ public class NetworkModel extends AbstractTableModel implements ITableModel {
 		return this.rowsCount;
 	}
 
-	public NetworkAddress getRow(int rowIndex) {
-		return this.resultSet.get(rowIndex);
+	public DatabaseModel getRow(int rowIndex) {
+		return (DatabaseModel)this.resultSet.get(rowIndex);
 	}
 
 	@Override

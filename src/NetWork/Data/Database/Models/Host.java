@@ -1,5 +1,8 @@
 package NetWork.Data.Database.Models;
-public class Host {
+
+import NetWork.Data.Database.Interface.IDatabaseModel;
+
+public class Host implements IDatabaseModel {
 
     public Host()
     {

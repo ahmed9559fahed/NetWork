@@ -1,11 +1,16 @@
 package NetWork.GUI.View.Controls;
 
+import NetWork.Data.Database.Interface.IDatabaseModel;
+import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.GUI.View.Controls.Interface.IReloadableListView;
 import NetWork.GUI.View.Controls.Interface.ITableModel;
+import NetWork.GUI.View.Controls.Table.NetworkModel;
 
 import javax.swing.*;
 
-public class ListView<TableModel extends ITableModel> extends FrameWindow implements IReloadableListView {
+public abstract class ListView
+        <TableModel extends ITableModel<DatabaseModel>, DatabaseModel extends IDatabaseModel> extends FrameWindow implements IReloadableListView<TableModel, DatabaseModel>
+{
 
     protected JTable table;
 
@@ -15,7 +20,6 @@ public class ListView<TableModel extends ITableModel> extends FrameWindow implem
 
     public ListView() {
         super();
-
         selfWindow = this;
     }
 
@@ -23,4 +27,12 @@ public class ListView<TableModel extends ITableModel> extends FrameWindow implem
         tableModel.Load();
         tableModel.fireTableDataChanged();
     }
+
+    public DatabaseModel getSelectedElement() {
+        int selectedRow = table.getSelectedRow();
+        DatabaseModel model = tableModel.getRow(selectedRow);
+
+        return model;
+    }
+
 }

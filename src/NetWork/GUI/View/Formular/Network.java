@@ -1,4 +1,4 @@
-package NetWork.GUI.View;
+package NetWork.GUI.View.Formular;
 
 import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.Data.Database.Service.DatabaseService;
@@ -18,12 +18,12 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 @SuppressWarnings("serial")
-public class NetworkView extends FrameWindow {
+public class Network extends FrameWindow {
 	
 	protected int windowWidth = 230;
 	protected int windowHeight = 370;
 	
-	public NetworkView() {
+	public Network() {
 		this.setSize(new Dimension(windowWidth, windowHeight));
 		
 		FrameWindow window = this;

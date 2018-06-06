@@ -1,28 +1,34 @@
 package NetWork.GUI.View.Controls.Table;
 
 import NetWork.Business.IPService;
+import NetWork.Data.Database.Interface.IDatabaseModel;
 import NetWork.Data.Database.Models.NetworkAddress;
+import NetWork.Data.Database.Models.SubnetAddress;
 import NetWork.GUI.View.Controls.Interface.ITableModel;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class SubnetModel extends AbstractTableModel implements ITableModel {
+public class SubnetModel<DatabaseModel extends IDatabaseModel> extends AbstractTableModel implements ITableModel<DatabaseModel> {
 
-    public SubnetModel()
+    protected int networkId;
+
+    public SubnetModel(int networkId)
     {
-        Service=new IPService();
+        this.networkId = networkId;
+
+        Service = new IPService();
     }
 
-    protected String[] columnNames = {"IP Address", "Prefix"};
+    protected String[] columnNames = {"IP Address", "Class"};
 
-    protected ArrayList<NetworkAddress> resultSet;
+    protected ArrayList<SubnetAddress> resultSet;
 
     protected IPService Service;
     protected int rowsCount;
 
     public void Load() {
-        resultSet = Service.GetNetworks();
+        resultSet = Service.GetSubnetsByNetworkId(this.networkId);
         this.rowsCount = this.resultSet.size();
     }
 
@@ -60,20 +66,20 @@ public class SubnetModel extends AbstractTableModel implements ITableModel {
         return this.rowsCount;
     }
 
-    public NetworkAddress getRow(int rowIndex) {
-        return this.resultSet.get(rowIndex);
+    public DatabaseModel getRow(int rowIndex) {
+        return (DatabaseModel)this.resultSet.get(rowIndex);
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        NetworkAddress network = this.resultSet.get(rowIndex);
+        SubnetAddress network = this.resultSet.get(rowIndex);
 
         switch (columnIndex) {
             case 0: {
-                return network.getIPAddress();
+                return network.getSubnetAddress();
             }
             case 1: {
-                return network.getPrefix();
+                return network.getNetworkClass();
             }
             default: {
                 return "";

@@ -3,7 +3,7 @@ package NetWork.GUI.View.Controls;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class FrameWindow extends JFrame {
@@ -21,5 +21,9 @@ public class FrameWindow extends JFrame {
 		
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.WHITE);
+	}
+
+	public void ShowError(String message) {
+		JOptionPane.showMessageDialog(null, message);
 	}
 }

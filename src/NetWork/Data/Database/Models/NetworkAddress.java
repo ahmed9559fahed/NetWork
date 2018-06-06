@@ -1,5 +1,8 @@
 package NetWork.Data.Database.Models;
-public class NetworkAddress
+
+import NetWork.Data.Database.Interface.IDatabaseModel;
+
+public class NetworkAddress implements IDatabaseModel
 {
     public NetworkAddress(String iPAddress ,int prefix)
     {

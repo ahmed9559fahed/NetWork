@@ -1,7 +1,11 @@
 package NetWork.GUI.View.Controls.Interface;
 
-public interface ITableModel {
-    public void Load();
+import NetWork.Data.Database.Interface.IDatabaseModel;
 
-    public void fireTableDataChanged();
+public interface ITableModel<DatabaseModel extends IDatabaseModel> {
+    void Load();
+
+    void fireTableDataChanged();
+
+    DatabaseModel getRow(int rowIndex);
 }
