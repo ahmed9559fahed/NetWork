@@ -10,15 +10,18 @@ import java.util.ArrayList;
 public interface IDataBaseService {
 
     boolean Connect();
-    boolean DisConnect();
-    ArrayList<NetworkAddress> Get_NETWORK_ADDRESSES();
-    ArrayList<SubnetAddress> Get_SubnetAddresses(int netWorkId);
-    ArrayList<Host> Get_Hosts(int subNetId);
-    int AddNetWork(NetworkAddress network);
-    int AddSubNet(SubnetAddress subnetAddress);
+    boolean Disconnect();
+
+    ArrayList<NetworkAddress> GetNetworkAddresses();
+    ArrayList<SubnetAddress> GetSubnetAddresses(int netWorkId);
+    ArrayList<Host> GetHosts(int subNetId);
+
+    int AddNetwork(NetworkAddress network);
+    int AddSubnet(SubnetAddress subnetAddress);
     int AddHost(Host host);
-    boolean DeleteNetWorkById(int networkId);
-    boolean DeleteSubNetById(int subnetAddressId);
+
+    boolean DeleteNetworkById(int networkId);
+    boolean DeleteSubnetById(int subnetAddressId);
     boolean DeleteHostById(int hostId);
     Device GetDeviceById(int deviceId);
 

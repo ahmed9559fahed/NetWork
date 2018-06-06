@@ -3,70 +3,68 @@ package NetWork.Business;
 import NetWork.Data.Database.Models.Host;
 import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.Data.Database.Models.SubnetAddress;
-import NetWork.Data.Database.Service.DataBaseService;
+import NetWork.Data.Database.Service.DatabaseService;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public class IPService implements IPServiceInterface {
 
+    protected DatabaseService databaseService;
+
+    public IPService() {
+        databaseService = DatabaseService.getService();
+    }
+
     @Override
     public boolean AddNetwork(NetworkAddress networkAddress)
     {
-        DataBaseService service=new DataBaseService();
-        if(service.AddNetWork(networkAddress)!=-1)
+        if(databaseService.AddNetwork(networkAddress)!=-1)
             return true;
         return false;
     }
 
     @Override
     public boolean AddSubnet(SubnetAddress subnet) {
-        DataBaseService service=new DataBaseService();
-        if(service.AddSubNet(subnet)!=-1)
+        if(databaseService.AddSubnet(subnet)!=-1)
             return true;
         return false;
     }
 
     @Override
     public boolean AddHost(Host host) {
-        DataBaseService service=new DataBaseService();
-        if(service.AddHost(host)!=-1)
+        if(databaseService.AddHost(host)!=-1)
             return true;
         return false;
     }
 
     @Override
     public ArrayList<NetworkAddress> GetNetworks() {
-        DataBaseService service=new DataBaseService();
-        return service.Get_NETWORK_ADDRESSES();
+        return databaseService.GetNetworkAddresses();
     }
 
     @Override
     public ArrayList<SubnetAddress> GetSubnetsByNetworkId(int networkId) {
-        DataBaseService service=new DataBaseService();
-        return service.Get_SubnetAddresses(networkId);
+        return databaseService.GetSubnetAddresses(networkId);
     }
 
     @Override
     public ArrayList<Host> GetHostsBySubnetId(int subnetId) {
-        DataBaseService service=new DataBaseService();
-        return service.Get_Hosts(subnetId);
+        return databaseService.GetHosts(subnetId);
     }
 
     @Override
     public boolean DeleteNetworkById(int networkId) {
-        DataBaseService service=new DataBaseService();
-        return service.DeleteNetWorkById(networkId);
+        return databaseService.DeleteNetworkById(networkId);
     }
 
     @Override
     public boolean DeleteSubnetById(int subnetId) {
-        DataBaseService service=new DataBaseService();
-        return service.DeleteSubNetById(subnetId);
+        return databaseService.DeleteSubnetById(subnetId);
     }
 
     @Override
     public boolean DeleteHostById(int hostId) {
-        DataBaseService service=new DataBaseService();
-        return service.DeleteHostById(hostId);
+        return databaseService.DeleteHostById(hostId);
     }
 }

@@ -1,59 +1,61 @@
 package NetWork.Data.Database.Models;
 public class Host {
 
+    public Host()
+    {
+
+    }
+
     private int Id;
-    private int SubNetsId;
+    private int SubnetId;
     private String IPAddress;
     private String Description;
     private String BitFormat;
     private int DeviceId;
 
-    public void setDevice(int device) {
-        DeviceId = device;
+    public int getId() {
+        return this.Id;
+    }
+
+    public void setId(int id) {
+        this.Id = id;
     }
 
     public int getDevice() {
-        return DeviceId;
+        return this.DeviceId;
     }
 
-    public void setBitFormat(String bitFormat) {
-        BitFormat = bitFormat;
+    public void setDevice(int device) {
+        this.DeviceId = device;
     }
-    public String getBiTFormat()
+
+    public String getBitFormat()
     {
         return this.BitFormat;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setBitFormat(String bitFormat) {
+        this.BitFormat = bitFormat;
     }
 
-    public Host()
-    {
-
-    }
-    public int getSubNetsId() {
-        return SubNetsId;
+    public int getSubnetId() {
+        return this.SubnetId;
     }
 
-    public void setSubNetsId(int subNetsId) {
-        SubNetsId = subNetsId;
-    }
-
-    public int getId() {
-        return Id;
+    public void setSubnetId(int subnetsId) {
+        this.SubnetId = subnetsId;
     }
 
     public String getDescription() {
-        return Description;
-    }
-
-    public String getIPAddress() {
-        return IPAddress;
+        return this.Description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.Description = description;
+    }
+
+    public String getIPAddress() {
+        return this.IPAddress;
     }
 
     public void setIPAddress(String IPAddress) {

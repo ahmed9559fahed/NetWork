@@ -4,81 +4,71 @@ public class SubnetAddress {
     public SubnetAddress(int networkId,String subNetAddress,String networkClass,int hosts)
     {
 
-        NetworkId1 = networkId;
-        SubNetAddress=subNetAddress;
-        NetworkClass =networkClass;
-        Hosts=hosts;
+        NetworkId = networkId;
+        SubnetAddress = subNetAddress;
+        NetworkClass = networkClass;
+        Hosts = hosts;
     }
-    public SubnetAddress()
-    {
 
-    }
+    public SubnetAddress() { }
+
     private int Id;
-    private String SubNetAddress;
+    private String SubnetAddress;
     private String NetworkClass;
     private int Hosts;
-    private int NetworkId1;
+    private int NetworkId;
     private String BitFormat;
 
     public int getId() {
-        return Id;
+        return this.Id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.Id = id;
     }
 
     public void setBitFormat(String bitFormat) {
-        BitFormat = bitFormat;
+        this.BitFormat = bitFormat;
     }
 
     public String getBitFormat() {
-        return BitFormat;
+        return this.BitFormat;
     }
 
-    public void setNetworkId1(int networkId1) {
-        NetworkId1 = networkId1;
+    public void setNetworkId(int networkId) {
+        this.NetworkId = networkId;
     }
 
-    public void setSubNetAddress(String subNetAddress) {
-        SubNetAddress = subNetAddress;
+    public int getNetworkId() {
+        return this.NetworkId;
     }
 
-    public int getNetworkId1() {
-        return NetworkId1;
-    }
-
-    public String GetSubNetAddress()
+    public String getSubnetAddress()
     {
-        return this.SubNetAddress;
+        return this.SubnetAddress;
     }
 
-    public void SetSubNetAddress(String ip)
+    public void setSubnetAddress(String ip)
     {
-        this.SubNetAddress=ip;
+        this.SubnetAddress = ip;
     }
 
-    public String GetNetworkClasse()
+    public String getNetworkClass()
     {
         return this.NetworkClass;
     }
 
-    public void SetNetworkClasse(String networkClasse)
+    public void setNetworkClass(String networkClass)
     {
-        this.NetworkClass =networkClasse;
+        this.NetworkClass = networkClass;
     }
 
     public int getHosts() {
-        return Hosts;
+        return this.Hosts;
     }
 
     public void setHosts(int hosts) {
-        Hosts = hosts;
-    }
-
-    public int GetId()
-    {
-        return this.Id;
+        this.Hosts = hosts;
     }
 
 }

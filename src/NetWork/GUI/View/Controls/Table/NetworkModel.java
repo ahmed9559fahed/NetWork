@@ -20,7 +20,6 @@ public class NetworkModel extends AbstractTableModel {
 	protected int rowsCount;
 
 	public void Load() {
-
 		resultSet = Service.GetNetworks();
 		this.rowsCount = this.resultSet.size();
 	}
