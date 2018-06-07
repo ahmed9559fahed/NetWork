@@ -13,6 +13,9 @@ public class TestEntryPoint {
     private static  IDataBaseService databaseService;
     public static void main(String [] args)
     {
+
+
+
         System.out.println("Started");
         databaseService = DatabaseService.getService();
 
@@ -111,5 +114,8 @@ public class TestEntryPoint {
         databaseService.DeleteNetworkById(1);
 
     }
+
+
+
 
 }

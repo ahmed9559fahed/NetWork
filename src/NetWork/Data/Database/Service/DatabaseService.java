@@ -18,10 +18,10 @@ public class DatabaseService implements IDataBaseService {
 
     private static DatabaseService instance = null;
 
-    protected String ServerHost = "web.sergo.management:3306";
-    protected String ServerDatabase = "jb_ipcalculater";
-    protected String ServerUsername = "jb_ipcalculater";
-    protected String ServerPassword = "paV4c0_3Kony9*91";
+    protected String ServerHost = "localhost";
+    protected String ServerDatabase = "ipcalculater";
+    protected String ServerUsername = "root";
+    protected String ServerPassword = "";
 
     public DatabaseService() {
         this.Connect();
