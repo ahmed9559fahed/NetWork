@@ -19,9 +19,9 @@ public class DatabaseService implements IDataBaseService {
     private static DatabaseService instance = null;
 
     protected String ServerHost = "localhost";
-    protected String ServerDatabase = "ipcalculater";
+    protected String ServerDatabase = "test";
     protected String ServerUsername = "root";
-    protected String ServerPassword = "";
+    protected String ServerPassword = "root";
 
     public DatabaseService() {
         this.Connect();
@@ -107,14 +107,39 @@ public class DatabaseService implements IDataBaseService {
         }
     }
 
+    public NetworkAddress GetNetworkAddressById(int networkId)
+    {
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM network where id= " + networkId);
+            result.first();
+
+            NetworkAddress network = new NetworkAddress();
+
+            network.setId(result.getInt(1));
+            network.setIPAddress(result.getString(2));
+            network.setPrefix(result.getInt(3));
+            network.setBitFormat(result.getString(4));
+
+            result.close();
+            stmt.close();
+
+            return network;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+
+    }
+
     @Override
-    public ArrayList<SubnetAddress> GetSubnetAddresses(int netWorkId)
+    public ArrayList<SubnetAddress> GetSubnetAddresses(int networkId)
     {
         try {
             ArrayList<SubnetAddress> subnets = new ArrayList<>();
 
             Statement stmt = connection.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * FROM subnet where network_id ="+netWorkId);
+            ResultSet result = stmt.executeQuery("SELECT * FROM subnet where network_id =" + String.valueOf(networkId));
 
             while (result.next())
             {
@@ -123,7 +148,7 @@ public class DatabaseService implements IDataBaseService {
                 subnet.setId(result.getInt(1));
                 subnet.setPrefix(result.getInt(4));
                 subnet.setSubnetAddress(result.getString(2));
-                subnet.setNetworkId(netWorkId);
+                subnet.setNetworkId(networkId);
                 subnet.setBitFormat(result.getString(5));
 
                 subnets.add(subnet);

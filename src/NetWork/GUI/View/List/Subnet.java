@@ -5,11 +5,17 @@ import NetWork.Data.Database.Models.SubnetAddress;
 import NetWork.Data.Database.Service.DatabaseService;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
+
 import NetWork.GUI.View.Controls.FlatButton;
 import NetWork.GUI.View.Controls.ListView;
 import NetWork.GUI.View.Controls.Listener.ReloadListView;
 import NetWork.GUI.View.Controls.Table.SubnetModel;
+import NetWork.GUI.View.Window.IPInfo;
+
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Subnet extends ListView<SubnetModel<SubnetAddress>, SubnetAddress> {
 
@@ -32,7 +38,7 @@ public class Subnet extends ListView<SubnetModel<SubnetAddress>, SubnetAddress> 
 		 */
 		FlatButton btnAddNewSubnet = new FlatButton((String) null);
 		btnAddNewSubnet.setText("Add new Subnet");
-		btnAddNewSubnet.setBounds(10, 454, 138, 35);
+		btnAddNewSubnet.setBounds(10, 454, 220, 35);
 
 		btnAddNewSubnet.addActionListener(e -> {
 			NetWork.GUI.View.Formular.Subnet formularView = new NetWork.GUI.View.Formular.Subnet(networkId);
@@ -45,10 +51,10 @@ public class Subnet extends ListView<SubnetModel<SubnetAddress>, SubnetAddress> 
 		/*
 		 * Button
 		 */
-		FlatButton flatButton = new FlatButton((String) null);
-		flatButton.setText("Delete Subnet");
-		flatButton.setBounds(176, 454, 138, 35);
-		flatButton.addActionListener(e -> {
+		FlatButton fltbtnShowInfo = new FlatButton((String) null);
+		fltbtnShowInfo.setText("Delete Subnet");
+		fltbtnShowInfo.setBounds(10, 505, 220, 35);
+		fltbtnShowInfo.addActionListener(e -> {
 			try {
 				SubnetAddress subnet = this.getSelectedElement();
 
@@ -66,7 +72,7 @@ public class Subnet extends ListView<SubnetModel<SubnetAddress>, SubnetAddress> 
 		 */
 		FlatButton flatButton_1 = new FlatButton((String) null);
 		flatButton_1.setText("Manage IPs");
-		flatButton_1.setBounds(346, 454, 138, 35);
+		flatButton_1.setBounds(264, 454, 220, 35);
 		flatButton_1.addActionListener(e -> {
 			try {
 				SubnetAddress subnet = getSelectedElement();
@@ -100,6 +106,22 @@ public class Subnet extends ListView<SubnetModel<SubnetAddress>, SubnetAddress> 
 		getContentPane().add(btnAddNewSubnet);
 		getContentPane().add(panel);
 		getContentPane().add(flatButton_1);
-		getContentPane().add(flatButton);
+		getContentPane().add(fltbtnShowInfo);
+		
+		FlatButton fltbtnIpInfo = new FlatButton((String) null);
+		fltbtnIpInfo.addActionListener(e -> {
+			try {
+				SubnetAddress subnet = getSelectedElement();
+				IPInfo ipInfo = new IPInfo(subnet);
+
+				ipInfo.setVisible(true);
+			} catch (ArrayIndexOutOfBoundsException aiofbException) {
+				this.ShowError("Please select a valid network!");
+			}
+			
+		});
+		fltbtnIpInfo.setText("IP Info");
+		fltbtnIpInfo.setBounds(264, 505, 220, 35);
+		getContentPane().add(fltbtnIpInfo);
 	}
 }

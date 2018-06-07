@@ -13,15 +13,15 @@ public class EntryPoint {
     public static void main(String[] args) {
 
         //Init database
-       // DatabaseService.getService();
+        DatabaseService.getService();
 
-        SubnetAddress subnet = DatabaseService.getService().GetSubnetAddressById(5);
+        //SubnetAddress subnet = DatabaseService.getService().GetSubnetAddressById(5);
 
-        FrameWindow window = new IPInfo(subnet);
-window.setVisible(true);
-        //JFrame frame = new Network();
+        //FrameWindow window = new IPInfo(subnet);
+        //window.setVisible(true);
+        JFrame frame = new Network();
         
-        //frame.setVisible(true);
+        frame.setVisible(true);
     }
 
 
