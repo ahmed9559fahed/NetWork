@@ -4,6 +4,8 @@ import NetWork.Data.Database.Models.Device;
 import NetWork.Data.Database.Models.Host;
 import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.Data.Database.Models.SubnetAddress;
+import sun.nio.ch.Net;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
@@ -108,13 +110,17 @@ public class DatabaseService implements IDataBaseService {
     }
 
     @Override
-    public ArrayList<SubnetAddress> GetSubnetAddresses(int netWorkId)
+    public ArrayList<SubnetAddress> GetSubnetAddresses(int networkId) {
+        return this.GetSubnetAddresses(networkId, "");
+    }
+
+    public ArrayList<SubnetAddress> GetSubnetAddresses(int netWorkId, String sqlAdd)
     {
         try {
             ArrayList<SubnetAddress> subnets = new ArrayList<>();
 
             Statement stmt = connection.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * FROM subnet where network_id ="+netWorkId);
+            ResultSet result = stmt.executeQuery("SELECT * FROM subnet where network_id ="+netWorkId + sqlAdd);
 
             while (result.next())
             {
@@ -160,6 +166,31 @@ public class DatabaseService implements IDataBaseService {
             stmt.close();
 
             return subnet;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+
+    }
+
+    @Override
+    public NetworkAddress GetNetworkAddressById(int networktId) {
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM network where id= " + networktId);
+            result.first();
+
+            NetworkAddress network = new NetworkAddress();
+
+            network.setId(result.getInt(networktId));
+            network.setPrefix(result.getInt(4));
+            network.setIPAddress(result.getString(2));
+            network.setBitFormat(result.getString(5));
+
+            result.close();
+            stmt.close();
+
+            return network;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return null;
