@@ -1,6 +1,8 @@
 package NetWork.Data.Database.Models;
 
-public class Device {
+import NetWork.Data.Database.Interface.IDatabaseModel;
+
+public class Device implements IDatabaseModel {
     private int Id;
     private String Name;
 

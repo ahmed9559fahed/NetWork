@@ -1,9 +1,8 @@
 package NetWork.GUI.View.Controls;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class FrameWindow extends JFrame {
@@ -15,11 +14,23 @@ public class FrameWindow extends JFrame {
 		super();
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setApplicationIcon();
 		this.setResizable(false);
 		
 		this.setSize(new Dimension(windowWidth, windowHeight));
 		
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.WHITE);
+	}
+
+	public void ShowError(String message) {
+		JOptionPane.showMessageDialog(null, message);
+	}
+
+	public void setApplicationIcon() {
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Class<? extends JFrame> j = this.getClass();
+		Image image = tk.createImage(j.getResource("/images/icon-white.png"));
+		this.setIconImage(image);
 	}
 }

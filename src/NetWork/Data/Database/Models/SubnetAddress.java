@@ -1,5 +1,8 @@
 package NetWork.Data.Database.Models;
-public class SubnetAddress {
+
+import NetWork.Data.Database.Interface.IDatabaseModel;
+
+public class SubnetAddress implements IDatabaseModel {
 
     public SubnetAddress(int networkId,String subNetAddress,String networkClass,int hosts)
     {

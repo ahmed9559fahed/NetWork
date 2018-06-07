@@ -21,8 +21,8 @@ public class TestEntryPoint {
 
         NetworkAddress networkAddress=new NetworkAddress();
         networkAddress.setBitFormat("11110000.11110000.11110000.11110000");
-        networkAddress.SetPrefix(24);
-        networkAddress.SetIPAddress("192.168.50.50");
+        networkAddress.setPrefix(24);
+        networkAddress.setIPAddress("192.168.50.50");
         int networkId = databaseService.AddNetwork(networkAddress);
 
 
@@ -91,7 +91,7 @@ public class TestEntryPoint {
         ArrayList<NetworkAddress> networks= databaseService.GetNetworkAddresses();
         for (NetworkAddress network:networks)
         {
-          System.out.println(network.GetIPAddress()+"\t"+network.GetPrefix());
+          System.out.println(network.getIPAddress()+"\t"+network.getPrefix());
         }
 
         System.out.println();

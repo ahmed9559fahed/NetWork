@@ -1,5 +1,8 @@
 package NetWork.Data.Database.Models;
-public class NetworkAddress
+
+import NetWork.Data.Database.Interface.IDatabaseModel;
+
+public class NetworkAddress implements IDatabaseModel
 {
     public NetworkAddress(String iPAddress ,int prefix)
     {
@@ -32,19 +35,19 @@ public class NetworkAddress
         return BitFormat;
     }
 
-    public String GetIPAddress()
+    public String getIPAddress()
     {
         return this.IPAddress;
     }
-    public void SetIPAddress(String ip)
+    public void setIPAddress(String ip)
     {
         this.IPAddress=ip;
     }
-    public int GetPrefix()
+    public int getPrefix()
     {
         return this.Prefix;
     }
-    public void SetPrefix(int prefix)
+    public void setPrefix(int prefix)
     {
         this.Prefix=prefix;
     }

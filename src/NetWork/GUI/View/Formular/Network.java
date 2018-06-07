@@ -1,5 +1,7 @@
-package NetWork.GUI.View;
+package NetWork.GUI.View.Formular;
 
+import NetWork.Data.Database.Models.NetworkAddress;
+import NetWork.Data.Database.Service.DatabaseService;
 import NetWork.GUI.View.Controls.FlatTextbox;
 import NetWork.GUI.View.Controls.FrameWindow;
 
@@ -9,18 +11,19 @@ import javax.swing.text.MaskFormatter;
 import java.awt.Dimension;
 import java.awt.Font;
 import NetWork.GUI.View.Controls.FlatButton;
+
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 @SuppressWarnings("serial")
-public class NetworkView extends FrameWindow {
+public class Network extends FrameWindow {
 	
 	protected int windowWidth = 230;
 	protected int windowHeight = 370;
 	
-	public NetworkView() {
+	public Network() {
 		this.setSize(new Dimension(windowWidth, windowHeight));
 		
 		FrameWindow window = this;
@@ -42,7 +45,7 @@ public class NetworkView extends FrameWindow {
 		/*
 		 * IPv4 IPv6 Selector
 		 */
-		JRadioButton rdbtnIpv = new JRadioButton("IPv4");
+		/*JRadioButton rdbtnIpv = new JRadioButton("IPv4");
 		rdbtnIpv.setSelected(true);
 		rdbtnIpv.setBackground(new Color(255, 255, 255));
 		rdbtnIpv.setBounds(12, 54, 74, 23);
@@ -51,7 +54,7 @@ public class NetworkView extends FrameWindow {
 		JRadioButton radioButton = new JRadioButton("IPv6");
 		radioButton.setBackground(new Color(255, 255, 255));
 		radioButton.setBounds(84, 54, 74, 23);
-		getContentPane().add(radioButton);
+		getContentPane().add(radioButton);*/
 		
 		
 		/*
@@ -62,7 +65,14 @@ public class NetworkView extends FrameWindow {
 		lblNewLabel.setBounds(12, 94, 127, 14);
 		getContentPane().add(lblNewLabel);
 
-		FlatTextbox ipTextbox = new FlatTextbox();
+		MaskFormatter ipv4Format = null;
+		try {
+			ipv4Format = new MaskFormatter("###.###.###.###");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		FlatTextbox ipTextbox = new FlatTextbox(ipv4Format);
 		ipTextbox.setBounds(12, 117, 202, 29);
 		getContentPane().add(ipTextbox);
 		
@@ -74,24 +84,17 @@ public class NetworkView extends FrameWindow {
 		lblNetzwerkPrefix.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNetzwerkPrefix.setBounds(12, 153, 127, 14);
 		getContentPane().add(lblNetzwerkPrefix);
-		
-		FlatTextbox prefixTextbox = new FlatTextbox();
-		prefixTextbox.setBounds(12, 235, 202, 29);
+
+
+		MaskFormatter ipv4Prefix = null;
+		try {
+			ipv4Prefix = new MaskFormatter("##");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		FlatTextbox prefixTextbox = new FlatTextbox(ipv4Prefix);
+		prefixTextbox.setBounds(12, 176, 202, 29);
 		getContentPane().add(prefixTextbox);
-		
-		
-		/*
-		 * DESCRIPTION
-		 */
-		JLabel lblBeschreibung = new JLabel("Description:");
-		lblBeschreibung.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblBeschreibung.setBounds(12, 212, 127, 14);
-		getContentPane().add(lblBeschreibung);
-		
-		FlatTextbox descriptionTextbox = new FlatTextbox();
-		descriptionTextbox.setBounds(12, 176, 202, 29);
-		getContentPane().add(descriptionTextbox);
-		
 		/*
 		 * Button separator
 		 */
@@ -113,14 +116,28 @@ public class NetworkView extends FrameWindow {
 		
 		btnCancel.setBounds(12, 295, 91, 29);
 		getContentPane().add(btnCancel);
-		
-		
+
 		/*
 		 * SAVE button
 		 */
 		FlatButton btnSave = new FlatButton((String) null);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				NetworkAddress network = new NetworkAddress();
+				network.setIPAddress(ipTextbox.getText());
+
+				try {
+					network.setPrefix(Integer.valueOf(prefixTextbox.getText()));
+				} catch (Exception exception) {
+					prefixTextbox.displayErrorBorder();
+
+					return;
+				}
+
+				network.setBitFormat(ipTextbox.getText());
+
+				DatabaseService.getService().AddNetwork(network);
+
 				window.setVisible(false);
 				window.dispose();
 			}
