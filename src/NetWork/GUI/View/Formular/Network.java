@@ -1,5 +1,6 @@
 package NetWork.GUI.View.Formular;
 
+import NetWork.Business.Calculater.IPv4.IPv4Object;
 import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.Data.Database.Service.DatabaseService;
 import NetWork.GUI.View.Controls.FlatTextbox;
@@ -22,7 +23,7 @@ public class Network extends FrameWindow {
 	
 	protected int windowWidth = 230;
 	protected int windowHeight = 370;
-	
+
 	public Network() {
 		this.setSize(new Dimension(windowWidth, windowHeight));
 		
@@ -124,17 +125,21 @@ public class Network extends FrameWindow {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NetworkAddress network = new NetworkAddress();
-				network.setIPAddress(ipTextbox.getText());
+
 
 				try {
+
+					IPv4Object iPv4Object=new IPv4Object(ipTextbox.getText()+"/"+prefixTextbox.getText());
+					network.setIPAddress(ipTextbox.getText());
 					network.setPrefix(Integer.valueOf(prefixTextbox.getText()));
+					network.setBitFormat(iPv4Object.getBinary(iPv4Object.BaseIPnumeric));
 				} catch (Exception exception) {
 					prefixTextbox.displayErrorBorder();
 
 					return;
 				}
 
-				network.setBitFormat(ipTextbox.getText());
+
 
 				DatabaseService.getService().AddNetwork(network);
 

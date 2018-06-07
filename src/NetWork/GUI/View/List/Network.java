@@ -17,7 +17,9 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("serial")
 public class Network extends ListView<NetworkModel<NetworkAddress>, NetworkAddress> {
 
+
 	public Network() {
+		this.setSize(new Dimension(700, windowHeight));
 		//TODO Load network model to get ip and prefix to show in title
 		this.setTitle("List of networks");
 

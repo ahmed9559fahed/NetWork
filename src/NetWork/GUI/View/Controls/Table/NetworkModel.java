@@ -6,6 +6,7 @@ import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.GUI.View.Controls.Interface.ITableModel;
 
 import javax.swing.table.AbstractTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class NetworkModel<DatabaseModel extends IDatabaseModel> extends AbstractTableModel implements ITableModel<DatabaseModel> {
@@ -14,7 +15,7 @@ public class NetworkModel<DatabaseModel extends IDatabaseModel> extends Abstract
 	{
 		Service=new IPService();
 	}
-	protected String[] columnNames = {"IP Address", "Prefix"};
+	protected String[] columnNames = {"IP Address", "Prefix","IP in Binary"};
 
 	protected ArrayList<NetworkAddress> resultSet;
 
@@ -74,6 +75,9 @@ public class NetworkModel<DatabaseModel extends IDatabaseModel> extends Abstract
 			}
 			case 1: {
 				return network.getPrefix();
+			}
+			case 2: {
+				return network.getBitFormat();
 			}
 			default: {
 				return "";

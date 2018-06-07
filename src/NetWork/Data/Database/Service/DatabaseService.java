@@ -19,9 +19,9 @@ public class DatabaseService implements IDataBaseService {
     private static DatabaseService instance = null;
 
     protected String ServerHost = "localhost";
-    protected String ServerDatabase = "test";
+    protected String ServerDatabase = "ipcalculater";
     protected String ServerUsername = "root";
-    protected String ServerPassword = "root";
+    protected String ServerPassword = "";
 
     public DatabaseService() {
         this.Connect();
