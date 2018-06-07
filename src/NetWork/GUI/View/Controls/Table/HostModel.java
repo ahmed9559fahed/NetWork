@@ -78,7 +78,7 @@ public class HostModel<DatabaseModel extends IDatabaseModel> extends AbstractTab
                 return network.getSubnetAddress();
             }
             case 1: {
-                return network.getNetworkClass();
+                return network.getPrefix();
             }
             default: {
                 return "";

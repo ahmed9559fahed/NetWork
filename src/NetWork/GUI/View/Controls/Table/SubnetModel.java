@@ -20,7 +20,7 @@ public class SubnetModel<DatabaseModel extends IDatabaseModel> extends AbstractT
         Service = new IPService();
     }
 
-    protected String[] columnNames = {"IP Address", "Class"};
+    protected String[] columnNames = {"IP Address", "Prefix"};
 
     protected ArrayList<SubnetAddress> resultSet;
 
@@ -79,7 +79,7 @@ public class SubnetModel<DatabaseModel extends IDatabaseModel> extends AbstractT
                 return network.getSubnetAddress();
             }
             case 1: {
-                return network.getNetworkClass();
+                return network.getPrefix();
             }
             default: {
                 return "";

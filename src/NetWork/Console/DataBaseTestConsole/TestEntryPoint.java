@@ -31,19 +31,19 @@ public class TestEntryPoint {
         subnet1.setSubnetAddress("192.245.212.245");
         subnet1.setBitFormat("11110000.10101010.00000000.11001100");
         subnet1.setNetworkId(networkId);
-        subnet1.setNetworkClass("C");
+        subnet1.setPrefix(24);
 
         SubnetAddress subnet2 = new SubnetAddress();
         subnet2.setSubnetAddress("192.245.218.245");
         subnet2.setBitFormat("11110000.10101010.00000000.11001100");
         subnet2.setNetworkId(networkId);
-        subnet2.setNetworkClass("B");
+        subnet2.setPrefix(16);
 
         SubnetAddress subnet3=new SubnetAddress();
         subnet3.setSubnetAddress("192.245.215.245");
         subnet3.setBitFormat("11110000.10101010.00000000.11001100");
         subnet3.setNetworkId(networkId);
-        subnet3.setNetworkClass("A");
+        subnet3.setPrefix(24);
         
         subnets.add(subnet1);
         subnets.add(subnet2);
@@ -99,7 +99,7 @@ public class TestEntryPoint {
         ArrayList<SubnetAddress> subnetsList= databaseService.GetSubnetAddresses(1);
         for (SubnetAddress subnet:subnetsList)
         {
-            System.out.println(subnet.getSubnetAddress()+"\t"+subnet.getBitFormat()+"\t"+subnet.getNetworkClass());
+            System.out.println(subnet.getSubnetAddress()+"\t"+subnet.getBitFormat()+"\t"+subnet.getPrefix());
         }
 
         System.out.println();

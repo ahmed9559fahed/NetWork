@@ -121,7 +121,7 @@ public class DatabaseService implements IDataBaseService {
                 SubnetAddress subnet = new SubnetAddress();
 
                 subnet.setId(result.getInt(1));
-                subnet.setNetworkClass(result.getString(4));
+                subnet.setPrefix(result.getInt(4));
                 subnet.setSubnetAddress(result.getString(2));
                 subnet.setNetworkId(netWorkId);
                 subnet.setBitFormat(result.getString(5));
@@ -151,7 +151,7 @@ public class DatabaseService implements IDataBaseService {
             SubnetAddress subnet = new SubnetAddress();
 
             subnet.setId(result.getInt(1));
-            subnet.setNetworkClass(result.getString(4));
+            subnet.setPrefix(result.getInt(4));
             subnet.setSubnetAddress(result.getString(2));
             subnet.setNetworkId(subnetId);
             subnet.setBitFormat(result.getString(5));
@@ -235,13 +235,13 @@ public class DatabaseService implements IDataBaseService {
     @Override
     public int AddSubnet(SubnetAddress subnetAddress) {
         try {
-            String insertTableSQL = "INSERT INTO subnet (ip , network_id, class, bit_format ) VALUES (?, ?, ?, ?)";
+            String insertTableSQL = "INSERT INTO subnet (ip , network_id, prefix, bit_format ) VALUES (?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, subnetAddress.getSubnetAddress());
             statement.setInt(2, subnetAddress.getNetworkId());
-            statement.setString(3, subnetAddress.getNetworkClass());
+            statement.setInt(3, subnetAddress.getPrefix());
             statement.setString(4, subnetAddress.getBitFormat());
 
             statement.execute();

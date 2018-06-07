@@ -4,21 +4,21 @@ import NetWork.Business.Calculater.IPv4.IPv4Object;
 import NetWork.Data.Database.Interface.IDatabaseModel;
 
 public class SubnetAddress implements IDatabaseModel {
-    public SubnetAddress(int networkId,String subNetAddress,String networkClass,int hosts)
+    public SubnetAddress(int networkId,String subNetAddress,int hosts,int prefix)
     {
         NetworkId = networkId;
         SubnetAddress = subNetAddress;
-        NetworkClass = networkClass;
         Hosts = hosts;
+        Prefix=prefix;
     }
 
     public SubnetAddress() { }
 
     private int Id;
     private String SubnetAddress;
-    private String NetworkClass;
     private int Hosts;
     private int NetworkId;
+    private int Prefix;
     private String BitFormat;
 
     public int getId() {
@@ -55,15 +55,6 @@ public class SubnetAddress implements IDatabaseModel {
         this.SubnetAddress = ip;
     }
 
-    public String getNetworkClass()
-    {
-        return this.NetworkClass;
-    }
-
-    public void setNetworkClass(String networkClass)
-    {
-        this.NetworkClass = networkClass;
-    }
 
     public int getHosts() {
         return this.Hosts;
@@ -72,4 +63,8 @@ public class SubnetAddress implements IDatabaseModel {
     public void setHosts(int hosts) {
         this.Hosts = hosts;
     }
+
+    public void setPrefix(int prefix) {Prefix = prefix;}
+
+    public int getPrefix() {return Prefix;}
 }

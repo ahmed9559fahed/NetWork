@@ -127,7 +127,7 @@ public class Subnet extends FrameWindow {
 				subnet.setSubnetAddress(ipTextbox.getText());
 
 				try {
-					subnet.setNetworkClass("C");
+					subnet.setPrefix(24);
 				} catch (Exception exception) {
 					prefixTextbox.displayErrorBorder();
 
