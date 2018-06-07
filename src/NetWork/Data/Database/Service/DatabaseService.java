@@ -21,12 +21,24 @@ public class DatabaseService implements IDataBaseService {
     private static DatabaseService instance = null;
 
     protected String ServerHost = "localhost";
-    protected String ServerDatabase = "ipcalculater";
+    protected String ServerDatabase = "test";
     protected String ServerUsername = "root";
-    protected String ServerPassword = "";
+    protected String ServerPassword = "root";
+
+    protected boolean connectedToDatabase = false;
+
+    protected Exception lastError;
 
     public DatabaseService() {
-        this.Connect();
+        this.connectedToDatabase = this.Connect();
+    }
+
+    public boolean isConnected() {
+        return this.connectedToDatabase;
+    }
+
+    public Exception getLastError() {
+        return this.lastError;
     }
 
     protected void finalize()
@@ -57,9 +69,13 @@ public class DatabaseService implements IDataBaseService {
 
             return true;
         }
-        catch (Exception ex)
+        catch (ClassNotFoundException ex)
         {
-            System.out.println(ex.getMessage());
+            this.lastError = ex;
+            return false;
+        }
+        catch (SQLException sqlException) {
+            this.lastError = sqlException;
             return false;
         }
     }

@@ -7,6 +7,7 @@ import NetWork.Data.Database.Service.DatabaseService;
 import NetWork.GUI.View.Controls.FrameWindow;
 import NetWork.GUI.View.List.Network;
 import NetWork.GUI.View.Window.IPInfo;
+import NetWork.GUI.View.Window.Welcome;
 
 public class EntryPoint {
 
@@ -19,9 +20,7 @@ public class EntryPoint {
 
         //FrameWindow window = new IPInfo(subnet);
         //window.setVisible(true);
-        JFrame frame = new Network();
-        
-        frame.setVisible(true);
+        JFrame frame = new Welcome();
     }
 
 
