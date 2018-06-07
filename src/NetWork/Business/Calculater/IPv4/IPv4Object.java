@@ -1,6 +1,7 @@
 package NetWork.Business.Calculater.IPv4;
 import NetWork.Data.Database.Models.SubnetAddress;
 import NetWork.Data.Database.Service.DatabaseService;
+import NetWork.GUI.View.Formular.Subnet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -386,39 +387,80 @@ public class IPv4Object {
     }
 
 
-    public List<String> GetSubnets(String ip,int prefix,int networkId)
+    public ArrayList<SubnetAddress> GetSubnets(String ip,int networkPrefix,int prefix,int networkId)
     {
 
-       /* String lastIp;
-        IPv4Object object=new IPv4Object(ip+"/"+prefix);
-        int x=Integer.parseInt(object.getNumberOfHosts()+"");
-        List<String> Ips=object.getAvailableIPs(x);
 
-        sub1.setPrefix(28);
-        subnets.add(sub1);
-        */
 
-       /*
-        int Hostbits=32-prefix;
-        int subnetHostBits=32-movetoPrefix;
+
+
+        int Hostbits=32-networkPrefix;
+        int subnetHostBits=32-prefix;
         int subnetBits=Hostbits-subnetHostBits;
         int subnetNumber= (int) Math.pow(2,subnetBits);
-        */
+
+        ArrayList<SubnetAddress> subnetses=new ArrayList<SubnetAddress>();
         ArrayList<SubnetAddress> lastSubNet= DatabaseService.getService().GetSubnetAddresses(networkId," order by id desc limit 1");
-        if(lastSubNet.size()==0)
-        {
-            IPv4Object object=new IPv4Object(ip+"/"+prefix);
-            int numberOfHosts=object.getNumberOfHosts();
-            List<String> subnets=object.getAvailableIPs(numberOfHosts);
-            return subnets;
-        }
-        else
-            {
+        if(lastSubNet.size()==0) {
+            SubnetAddress obj1 = new SubnetAddress();
+            obj1.setSubnetAddress(ip);
+            obj1.setPrefix(prefix);
+            subnetses.add(obj1);
+            IPv4Object object = new IPv4Object(ip + "/" + prefix);
+            String broadcast = object.getBroadcastAddress();
+            //int numberOfHosts = object.getNumberOfHosts();
+            String lastBroadcast = broadcast;
+            for (int i = 0; i < subnetNumber-1; i++) {
+                SubnetAddress obj = new SubnetAddress();
+                obj.setSubnetAddress(GetNextIp(lastBroadcast));
+                obj.setPrefix(prefix);
+                subnetses.add(obj);
+                IPv4Object iPv4Object = new IPv4Object(obj.getSubnetAddress() + "/" + obj.getPrefix());
+                lastBroadcast = iPv4Object.getBroadcastAddress();
 
             }
 
+            return subnetses;
+        }
+        else
+            {
+                return null;
+            }
 
-        return null;
+    }
 
+    private String GetNextIp(String ip)
+    {
+        String[] st = ip.split("\\.");
+        int oct1=Integer.parseInt(st[0]);
+        int oct2=Integer.parseInt(st[1]);
+        int oct3=Integer.parseInt(st[2]);
+        int oct4=Integer.parseInt(st[3]);
+
+        if(oct4<255)
+        {
+            oct4++;
+        return oct1+"."+oct2+"."+oct3+"."+oct4;
+        }
+        if(oct3<255)
+        {
+            oct3++;
+            return oct1+"."+oct2+"."+oct3+"."+oct4;
+        }
+        if(oct2<255)
+        {
+            oct2++;
+            return oct1+"."+oct2+"."+oct3+"."+oct4;
+        }
+        if(oct1<255)
+        {
+            oct1++;
+            return oct1+"."+oct2+"."+oct3+"."+oct4;
+        }
+
+
+
+
+        return "";
     }
 }
