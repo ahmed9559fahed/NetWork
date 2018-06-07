@@ -20,17 +20,20 @@ import java.util.List;
 public class IPInfo extends FrameWindow {
 
 	protected IPv4Object IPObject;
+	protected int Prefix;
 
 	public IPInfo(NetworkAddress network) {
         //IPv4Object ipv4Object = new IPv4Object(subnet.getSubnetAddress() + "/" + "PREFIX");
-
-		this.loadContent();
 		IPObject = new IPv4Object(network.getIPAddress()+"/"+network.getPrefix());
+		Prefix=network.getPrefix();
+		this.loadContent();
+
 	}
 
 	public IPInfo(SubnetAddress subnet) {
-		this.loadContent();
 		IPObject = new IPv4Object(subnet.getSubnetAddress()+"/"+subnet.getPrefix());
+		Prefix=subnet.getPrefix();
+		this.loadContent();
 
 	}
 
@@ -46,7 +49,7 @@ public class IPInfo extends FrameWindow {
 		separator.setBounds(6, 487, 588, 12);
 		getContentPane().add(separator);
 
-		JLabel lblIpInformationsFor = new JLabel("IP information for 192.168.0.0/24");
+		JLabel lblIpInformationsFor = new JLabel("IP information for "+IPObject.getIP()+"/"+Prefix);
 		lblIpInformationsFor.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblIpInformationsFor.setBounds(142, 16, 315, 16);
 		getContentPane().add(lblIpInformationsFor);
