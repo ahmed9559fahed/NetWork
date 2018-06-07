@@ -21,4 +21,8 @@ public class Device implements IDatabaseModel {
     public int getId() {
         return Id;
     }
+
+    public String toString() {
+        return this.getName();
+    }
 }

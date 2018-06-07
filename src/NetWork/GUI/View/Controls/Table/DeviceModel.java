@@ -2,33 +2,24 @@ package NetWork.GUI.View.Controls.Table;
 
 import NetWork.Business.IPService;
 import NetWork.Data.Database.Interface.IDatabaseModel;
-import NetWork.Data.Database.Models.SubnetAddress;
+import NetWork.Data.Database.Models.Device;
+import NetWork.Data.Database.Models.Host;
+import NetWork.Data.Database.Service.DatabaseService;
 import NetWork.GUI.View.Controls.Interface.ITableModel;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-@SuppressWarnings("serial")
-public class SubnetModel<DatabaseModel extends IDatabaseModel> extends AbstractTableModel implements ITableModel<DatabaseModel> {
+public class DeviceModel<DatabaseModel extends IDatabaseModel> extends AbstractTableModel implements ITableModel<DatabaseModel> {
 
-    protected int networkId;
+    protected String[] columnNames = {"Name"};
 
-    public SubnetModel(int networkId)
-    {
-        this.networkId = networkId;
+    protected ArrayList<Device> resultSet;
 
-        Service = new IPService();
-    }
-
-    protected String[] columnNames = {"IP Address", "Prefix"};
-
-    protected ArrayList<SubnetAddress> resultSet;
-
-    protected IPService Service;
     protected int rowsCount;
 
     public void Load() {
-        resultSet = Service.GetSubnetsByNetworkId(this.networkId);
+        resultSet = DatabaseService.getService().GetDeviceList();
         this.rowsCount = this.resultSet.size();
     }
 
@@ -67,20 +58,16 @@ public class SubnetModel<DatabaseModel extends IDatabaseModel> extends AbstractT
     }
 
     public DatabaseModel getRow(int rowIndex) {
-        DatabaseModel databaseModel = (DatabaseModel)this.resultSet.get(rowIndex);
-		return databaseModel;
+        return (DatabaseModel)this.resultSet.get(rowIndex);
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        SubnetAddress network = this.resultSet.get(rowIndex);
+        Device device = this.resultSet.get(rowIndex);
 
         switch (columnIndex) {
             case 0: {
-                return network.getSubnetAddress();
-            }
-            case 1: {
-                return network.getPrefix();
+                return device.getName();
             }
             default: {
                 return "";

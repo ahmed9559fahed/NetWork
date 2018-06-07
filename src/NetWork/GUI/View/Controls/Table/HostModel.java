@@ -2,32 +2,36 @@ package NetWork.GUI.View.Controls.Table;
 
 import NetWork.Business.IPService;
 import NetWork.Data.Database.Interface.IDatabaseModel;
+import NetWork.Data.Database.Models.Device;
+import NetWork.Data.Database.Models.Host;
 import NetWork.Data.Database.Models.SubnetAddress;
+import NetWork.Data.Database.Service.DatabaseService;
 import NetWork.GUI.View.Controls.Interface.ITableModel;
 
 import javax.swing.table.AbstractTableModel;
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public class HostModel<DatabaseModel extends IDatabaseModel> extends AbstractTableModel implements ITableModel<DatabaseModel> {
 
-    protected int networkId;
+    protected int subnetId;
 
     public HostModel(int networkId)
     {
-        this.networkId = networkId;
+        this.subnetId = networkId;
 
         Service = new IPService();
     }
 
-    protected String[] columnNames = {"IP Address", "Class"};
+    protected String[] columnNames = {"IP Address", "Device", "Description"};
 
-    protected ArrayList<SubnetAddress> resultSet;
+    protected ArrayList<Host> resultSet;
 
     protected IPService Service;
     protected int rowsCount;
 
     public void Load() {
-        resultSet = Service.GetSubnetsByNetworkId(this.networkId);
+        resultSet = DatabaseService.getService().GetHosts(this.subnetId);
         this.rowsCount = this.resultSet.size();
     }
 
@@ -71,14 +75,21 @@ public class HostModel<DatabaseModel extends IDatabaseModel> extends AbstractTab
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        SubnetAddress network = this.resultSet.get(rowIndex);
+        Host host = this.resultSet.get(rowIndex);
 
         switch (columnIndex) {
             case 0: {
-                return network.getSubnetAddress();
+                return host.getIPAddress();
             }
             case 1: {
-                return network.getPrefix();
+
+                Device device = DatabaseService.getService().GetDeviceById(host.getDevice());
+
+
+                return device.getName();
+            }
+            case 2: {
+                return host.getDescription();
             }
             default: {
                 return "";
