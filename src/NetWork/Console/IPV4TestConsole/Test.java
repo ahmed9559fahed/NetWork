@@ -25,7 +25,9 @@ public class Test {
         //Get Number of avaliable Hosts
         System.out.println("NumberOfHosts: "+ipv42.getNumberOfHosts());
 
+        System.out.println("Binary Of Broadcast: " + ipv42.GetBinary(ipv42.getBroadcastAddress()));
 
+/*
         //Get list of Avaliable IP Addresses
         List<String> availableIPs = ipv42.getAvailableIPs(Integer.parseInt(ipv42.getNumberOfHosts()+""));
         int counter=0;
@@ -60,7 +62,7 @@ public class Test {
         System.out.println(ipv4Child.getBinary(ipv4Child.netmaskNumeric));
 
         System.out.println(ipv44.contains(ipv4Child));
-
+*/
         }
 
 }

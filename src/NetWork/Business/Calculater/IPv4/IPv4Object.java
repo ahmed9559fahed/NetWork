@@ -7,11 +7,39 @@ public class IPv4Object {
     public int BaseIPnumeric;
     public int netmaskNumeric;
 
-      /**
+    /**
      * Specify IP in CIDR format like: new IPv4Object("10.1.0.25/16");
      *
-     *@param IPinCIDRFormat
+     * @param
      */
+    public String GetBinary(String Ip) {
+
+
+        /* IP */
+        String[] st = Ip.split("\\.");
+
+        if (st.length != 4)
+            throw new NumberFormatException("Invalid IP address: " + Ip);
+
+        int i = 24;
+        BaseIPnumeric = 0;
+
+        for (int n = 0; n < st.length; n++) {
+
+            int value = Integer.parseInt(st[n]);
+
+            if (value != (value & 0xff)) {
+
+                throw new NumberFormatException("Invalid IP address: " + Ip);
+            }
+
+            BaseIPnumeric += value << i;
+            i -= 8;
+        }
+       return  getBinary(BaseIPnumeric);
+    }
+
+
     public IPv4Object(String IPinCIDRFormat) throws NumberFormatException {
 
         String[] st = IPinCIDRFormat.split("\\/");
