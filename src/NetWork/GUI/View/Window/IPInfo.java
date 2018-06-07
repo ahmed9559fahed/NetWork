@@ -17,11 +17,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class IPInfo extends FrameWindow {
 
 	protected IPv4Object IPObject;
 	protected int Prefix;
 
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public IPInfo(NetworkAddress network) {
         //IPv4Object ipv4Object = new IPv4Object(subnet.getSubnetAddress() + "/" + "PREFIX");
 		IPObject = new IPv4Object(network.getIPAddress()+"/"+network.getPrefix());
@@ -104,7 +108,7 @@ public class IPInfo extends FrameWindow {
 		FlatTextbox txtHostRange = new FlatTextbox();
 		txtHostRange.setEditable(false);
 		txtHostRange.setText(IPObject.getHostAddressRange());
-		txtHostRange.setBounds(134, 211, 137, 25);
+		txtHostRange.setBounds(134, 211, 431, 25);
 		getContentPane().add(txtHostRange);
 
 		FlatTextbox txtHostNumbers = new FlatTextbox();
