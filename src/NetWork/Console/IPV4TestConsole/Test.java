@@ -2,7 +2,7 @@ package NetWork.Console.IPV4TestConsole;
 
 import NetWork.Business.Calculater.IPv4.IPv4Object;
 
-import java.util.List;
+
 
 public class Test {
 
@@ -12,6 +12,8 @@ public class Test {
 
 
         IPv4Object ipv42 = new IPv4Object("10.1.16.0/20");
+
+        ipv42.GetSubnets("192.168.1.0",24,28);
         //Get Network Ip
         System.out.println("NetworkIp: "+ipv42.getIP());
         //Get Broadcast

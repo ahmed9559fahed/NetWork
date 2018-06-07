@@ -1,4 +1,7 @@
 package NetWork.Business.Calculater.IPv4;
+import NetWork.Data.Database.Models.SubnetAddress;
+import NetWork.Data.Database.Service.DatabaseService;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -215,7 +218,7 @@ public class IPv4Object {
      *
      *@return number of hosts
      */
-    public Long getNumberOfHosts() {
+    public int getNumberOfHosts() {
         int numberOfBits;
 
         for (numberOfBits = 0; numberOfBits < 32; numberOfBits++) {
@@ -229,7 +232,7 @@ public class IPv4Object {
         if (x == -1)
             x = 1D;
 
-        return x.longValue();
+        return x.intValue();
     }
 
     /**
@@ -380,5 +383,42 @@ public class IPv4Object {
             return true;
         }
         return false;
+    }
+
+
+    public List<String> GetSubnets(String ip,int prefix,int networkId)
+    {
+
+       /* String lastIp;
+        IPv4Object object=new IPv4Object(ip+"/"+prefix);
+        int x=Integer.parseInt(object.getNumberOfHosts()+"");
+        List<String> Ips=object.getAvailableIPs(x);
+
+        sub1.setPrefix(28);
+        subnets.add(sub1);
+        */
+
+       /*
+        int Hostbits=32-prefix;
+        int subnetHostBits=32-movetoPrefix;
+        int subnetBits=Hostbits-subnetHostBits;
+        int subnetNumber= (int) Math.pow(2,subnetBits);
+        */
+        ArrayList<SubnetAddress> lastSubNet= DatabaseService.getService().GetSubnetAddresses(networkId," order by id desc limit 1");
+        if(lastSubNet.size()==0)
+        {
+            IPv4Object object=new IPv4Object(ip+"/"+prefix);
+            int numberOfHosts=object.getNumberOfHosts();
+            List<String> subnets=object.getAvailableIPs(numberOfHosts);
+            return subnets;
+        }
+        else
+            {
+
+            }
+
+
+        return null;
+
     }
 }
