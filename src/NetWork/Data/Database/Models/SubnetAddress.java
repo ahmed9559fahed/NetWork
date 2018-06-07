@@ -1,12 +1,11 @@
 package NetWork.Data.Database.Models;
 
+import NetWork.Business.Calculater.IPv4.IPv4Object;
 import NetWork.Data.Database.Interface.IDatabaseModel;
 
 public class SubnetAddress implements IDatabaseModel {
-
     public SubnetAddress(int networkId,String subNetAddress,String networkClass,int hosts)
     {
-
         NetworkId = networkId;
         SubnetAddress = subNetAddress;
         NetworkClass = networkClass;
@@ -73,5 +72,4 @@ public class SubnetAddress implements IDatabaseModel {
     public void setHosts(int hosts) {
         this.Hosts = hosts;
     }
-
 }

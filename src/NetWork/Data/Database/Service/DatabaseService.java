@@ -141,6 +141,33 @@ public class DatabaseService implements IDataBaseService {
     }
 
     @Override
+    public SubnetAddress GetSubnetAddressById(int subnetId)
+    {
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM subnet where id= " + subnetId);
+            result.first();
+
+            SubnetAddress subnet = new SubnetAddress();
+
+            subnet.setId(result.getInt(1));
+            subnet.setNetworkClass(result.getString(4));
+            subnet.setSubnetAddress(result.getString(2));
+            subnet.setNetworkId(subnetId);
+            subnet.setBitFormat(result.getString(5));
+
+            result.close();
+            stmt.close();
+
+            return subnet;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+
+    }
+
+    @Override
     public ArrayList<Host> GetHosts(int subNetId)
     {
         try {

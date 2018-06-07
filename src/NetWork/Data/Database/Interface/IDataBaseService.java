@@ -15,6 +15,8 @@ public interface IDataBaseService {
     ArrayList<NetworkAddress> GetNetworkAddresses();
     ArrayList<SubnetAddress> GetSubnetAddresses(int netWorkId);
     ArrayList<Host> GetHosts(int subNetId);
+    SubnetAddress GetSubnetAddressById(int subnetId);
+
 
     int AddNetwork(NetworkAddress network);
     int AddSubnet(SubnetAddress subnetAddress);
