@@ -16,10 +16,8 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class Network extends ListView<NetworkModel<NetworkAddress>, NetworkAddress> {
-
-
 	public Network() {
-		this.setSize(new Dimension(700, windowHeight));
+		this.setSize(new Dimension(700, 580));
 		//TODO Load network model to get ip and prefix to show in title
 		this.setTitle("List of networks");
 
@@ -27,7 +25,7 @@ public class Network extends ListView<NetworkModel<NetworkAddress>, NetworkAddre
 		this.reloadTable();
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(6, 480, 488, 11);
+		separator.setBounds(6, 480, 688, 11);
 		getContentPane().add(separator);
 		
 		FlatButton btnNewNetwork = new FlatButton("New Network");
@@ -40,11 +38,11 @@ public class Network extends ListView<NetworkModel<NetworkAddress>, NetworkAddre
 			view.addWindowListener(listener);
 		});
 
-		btnNewNetwork.setBounds(6, 505, 132, 34);
+		btnNewNetwork.setBounds(16, 503, 132, 34);
 		getContentPane().add(btnNewNetwork);
 		
 		FlatButton btnDeleteNetwork = new FlatButton("Delete Network");
-		btnDeleteNetwork.setBounds(176, 505, 148, 35);
+		btnDeleteNetwork.setBounds(271, 503, 148, 35);
 		btnDeleteNetwork.addActionListener(e -> {
 			try {
 				NetworkAddress network = this.getSelectedElement();
@@ -72,7 +70,7 @@ public class Network extends ListView<NetworkModel<NetworkAddress>, NetworkAddre
 		});
 
 		btnShowSubnets.setForeground(Color.WHITE);
-		btnShowSubnets.setBounds(352, 505, 132, 34);
+		btnShowSubnets.setBounds(544, 503, 132, 34);
 		getContentPane().add(btnShowSubnets);
 
 		/*
@@ -80,7 +78,7 @@ public class Network extends ListView<NetworkModel<NetworkAddress>, NetworkAddre
 		 */
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(6, 6, 488, 437);
+		panel.setBounds(6, 6, 688, 437);
 		getContentPane().add(panel);
 
 		table = new JTable(this.tableModel);
