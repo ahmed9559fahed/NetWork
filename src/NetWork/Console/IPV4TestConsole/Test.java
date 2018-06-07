@@ -1,7 +1,9 @@
 package NetWork.Console.IPV4TestConsole;
 
 import NetWork.Business.Calculater.IPv4.IPv4Object;
+import NetWork.Data.Database.Models.SubnetAddress;
 
+import java.util.ArrayList;
 
 
 public class Test {
@@ -11,9 +13,9 @@ public class Test {
 
 
 
-        IPv4Object ipv42 = new IPv4Object("10.1.16.0/20");
+        IPv4Object ipv42 = new IPv4Object("192.168.1.0/28");
 
-        ipv42.GetSubnets("192.168.1.0",24,28);
+        ArrayList<SubnetAddress> subnets= ipv42.GetSubnets("192.168.1.0",26,29,29);
         //Get Network Ip
         System.out.println("NetworkIp: "+ipv42.getIP());
         //Get Broadcast
