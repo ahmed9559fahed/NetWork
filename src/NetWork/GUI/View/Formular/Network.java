@@ -128,9 +128,8 @@ public class Network extends FrameWindow {
 
 
 				try {
-
 					IPv4Object iPv4Object=new IPv4Object(ipTextbox.getText()+"/"+prefixTextbox.getText());
-					network.setIPAddress(ipTextbox.getText());
+					network.setIPAddress(iPv4Object.getIP());
 					network.setPrefix(Integer.valueOf(prefixTextbox.getText()));
 					network.setBitFormat(iPv4Object.getBinary(iPv4Object.BaseIPnumeric));
 				} catch (Exception exception) {

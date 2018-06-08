@@ -27,7 +27,8 @@ public class Subnet extends ListView<SubnetModel<SubnetAddress>, SubnetAddress> 
 		this.reloadTable();
 
 		//TODO Load network model to get ip and prefix to show in title
-		this.setTitle("List of Subnets for " + String.valueOf(this.networkId));
+		NetworkAddress network = DatabaseService.getService().GetNetworkAddressById(this.networkId);
+		this.setTitle("List of Subnets for " + network.getIPAddress() + "/" + network.getPrefix());
 
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
