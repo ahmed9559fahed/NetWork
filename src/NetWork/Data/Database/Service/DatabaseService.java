@@ -20,16 +20,24 @@ public class DatabaseService implements IDataBaseService {
 
     private static DatabaseService instance = null;
 
-    protected String ServerHost = "localhost";
-    protected String ServerDatabase = "ipcalculater";
-    protected String ServerUsername = "root";
+    protected String ServerHost = "";
+    protected String ServerDatabase = "";
+    protected String ServerUsername = "";
     protected String ServerPassword = "";
 
     protected boolean connectedToDatabase = false;
 
     protected Exception lastError;
 
+    public void LoadConfigurationFile()
+    {
+        ServerHost=ConfigurationFile.Servername;
+        ServerDatabase=ConfigurationFile.Database;
+        ServerUsername=ConfigurationFile.User;
+        ServerPassword=ConfigurationFile.Password;
+    }
     public DatabaseService() {
+        LoadConfigurationFile();
         this.connectedToDatabase = this.Connect();
     }
 

@@ -9,9 +9,14 @@ import NetWork.GUI.View.List.Network;
 import NetWork.GUI.View.Window.IPInfo;
 import NetWork.GUI.View.Window.Welcome;
 
+import java.io.IOException;
+
 public class EntryPoint {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        CrunchifyGetPropertyValues properties = new CrunchifyGetPropertyValues();
+        String Propert=  properties.getPropValues();
+
 
         //Init database
         DatabaseService.getService();
