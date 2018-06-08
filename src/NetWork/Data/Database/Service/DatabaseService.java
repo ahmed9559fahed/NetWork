@@ -177,15 +177,15 @@ public class DatabaseService implements IDataBaseService {
     public NetworkAddress GetNetworkAddressById(int networktId) {
         try {
             Statement stmt = connection.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * FROM network where id= " + networktId);
+            ResultSet result = stmt.executeQuery("SELECT * FROM network where id = " + networktId);
             result.first();
 
             NetworkAddress network = new NetworkAddress();
 
             network.setId(result.getInt(networktId));
-            network.setPrefix(result.getInt(4));
+            network.setPrefix(result.getInt(3));
             network.setIPAddress(result.getString(2));
-            network.setBitFormat(result.getString(5));
+            network.setBitFormat(result.getString(4));
 
             result.close();
             stmt.close();
@@ -346,6 +346,43 @@ public class DatabaseService implements IDataBaseService {
             stmt.execute(deleteNetworkSql);
 
             stmt.close();
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean DeleteHostBySubnetID(int sibnetId) {
+        try {
+            String deleteTableSQL = "DELETE FROM host where subnet_id="+sibnetId;
+
+            Statement stmt = connection.createStatement();
+            stmt.execute(deleteTableSQL);
+
+            stmt.close();
+
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+
+    @Override
+    public boolean DeleteAllSubnetByNetworkID(int networkId) {
+        try {
+            String deleteSubnetSql = "DELETE FROM subnet where network_id="+networkId;
+            for (SubnetAddress subnet :
+                    GetSubnetAddresses(networkId)) {
+                DeleteHostBySubnetID(subnet.getId());
+                DeleteSubnetById(subnet.getId());
+            }
 
             return true;
         }

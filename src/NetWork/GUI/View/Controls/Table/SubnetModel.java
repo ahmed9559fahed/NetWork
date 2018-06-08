@@ -4,9 +4,11 @@ import NetWork.Business.IPService;
 import NetWork.Data.Database.Interface.IDatabaseModel;
 import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.Data.Database.Models.SubnetAddress;
+import NetWork.Data.Database.Service.DatabaseService;
 import NetWork.GUI.View.Controls.Interface.ITableModel;
 
 import javax.swing.table.AbstractTableModel;
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public class SubnetModel<DatabaseModel extends IDatabaseModel> extends AbstractTableModel implements ITableModel<DatabaseModel> {
@@ -17,18 +19,18 @@ public class SubnetModel<DatabaseModel extends IDatabaseModel> extends AbstractT
     {
         this.networkId = networkId;
 
-        Service = new IPService();
+        Service = new DatabaseService();
     }
 
     protected String[] columnNames = {"IP Address", "Prefix"};
 
     protected ArrayList<SubnetAddress> resultSet;
 
-    protected IPService Service;
+    protected DatabaseService Service;
     protected int rowsCount;
 
     public void Load() {
-        resultSet = Service.GetSubnetsByNetworkId(this.networkId);
+        resultSet = Service.GetSubnetAddresses(this.networkId);
         this.rowsCount = this.resultSet.size();
     }
 

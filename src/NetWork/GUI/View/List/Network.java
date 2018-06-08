@@ -104,7 +104,6 @@ public class Network extends ListView<NetworkModel<NetworkAddress>, NetworkAddre
 			try {
 				NetworkAddress network = getSelectedElement();
 				IPInfo ipInfo = new IPInfo(network);
-
 				ipInfo.setVisible(true);
 			} catch (ArrayIndexOutOfBoundsException aiofbException) {
 				this.ShowError("Please select a valid network!");

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class TestIPService {
     public static void  main(String [] Args)
     {
+        /*
         IPService service=new IPService();
         ArrayList<NetworkAddress> networks=service.GetNetworks();
 
@@ -17,5 +18,6 @@ public class TestIPService {
         network.setPrefix(32);
 
         service.AddNetwork(network);
+    */
     }
 }

@@ -19,6 +19,7 @@ public class IPInfo extends FrameWindow {
 
 	protected IPv4Object IPObject;
 	protected int Prefix;
+	protected String Ip;
 
 	/**
 	 * @wbp.parser.constructor
@@ -67,6 +68,7 @@ public class IPInfo extends FrameWindow {
 		lblNetworkIp.setBounds(6, 73, 86, 16);
 		getContentPane().add(lblNetworkIp);
 
+		Ip=IPObject.getIP();
 		//default ip
 		FlatTextbox txtNetwork = new FlatTextbox();
 		txtNetwork.setEditable(false);
@@ -137,6 +139,7 @@ public class IPInfo extends FrameWindow {
 		 * HOST RANGE
 		 */
 		//label
+		IPv4Object op=new IPv4Object(Ip+"/"+Prefix);
 		JLabel lblHostRange = new JLabel("Host range:");
 		lblHostRange.setHorizontalAlignment(SwingConstants.LEFT);
 		lblHostRange.setBounds(6, 216, 76, 16);
@@ -145,7 +148,7 @@ public class IPInfo extends FrameWindow {
 		//input field
 		FlatTextbox txtHostRange = new FlatTextbox();
 		txtHostRange.setEditable(false);
-		txtHostRange.setText(IPObject.getHostAddressRange());
+		txtHostRange.setText(op.getHostAddressRange());
 		txtHostRange.setBounds(134, 211, 431, 25);
 		getContentPane().add(txtHostRange);
 
@@ -181,8 +184,9 @@ public class IPInfo extends FrameWindow {
 
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
 
-		int numberOfHosts=Integer.parseInt(IPObject.getNumberOfHosts()+"");
-		List<String> availableIPs = IPObject.getAvailableIPs(numberOfHosts);
+
+
+		List<String> availableIPs = op.getAvailableIPs(Integer.parseInt(op.getNumberOfHosts()+""));
 		for (String ip : availableIPs)
 		{
 			listModel.addElement(ip);

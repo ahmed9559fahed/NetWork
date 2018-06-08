@@ -39,11 +39,11 @@ public class Host extends ListView<HostModel<NetWork.Data.Database.Models.Host>,
 		btnAddNewSubnet.setBounds(10, 454, 138, 35);
 
 		btnAddNewSubnet.addActionListener(e -> {
-			NetWork.GUI.View.Formular.Subnet formularView = new NetWork.GUI.View.Formular.Subnet(networkId);
-			formularView.setVisible(true);
+			//NetWork.GUI.View.Formular.Subnet formularView = new NetWork.GUI.View.Formular.Subnet(networkId,);
+			//formularView.setVisible(true);
 
-			ReloadListView listener = new ReloadListView(this, formularView);
-			formularView.addWindowListener(listener);
+			//ReloadListView listener = new ReloadListView(this, formularView);
+			//formularView.addWindowListener(listener);
 		});
 
 		/*

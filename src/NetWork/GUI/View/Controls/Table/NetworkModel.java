@@ -3,6 +3,7 @@ package NetWork.GUI.View.Controls.Table;
 import NetWork.Business.IPService;
 import NetWork.Data.Database.Interface.IDatabaseModel;
 import NetWork.Data.Database.Models.NetworkAddress;
+import NetWork.Data.Database.Service.DatabaseService;
 import NetWork.GUI.View.Controls.Interface.ITableModel;
 
 import javax.swing.table.AbstractTableModel;
@@ -13,17 +14,17 @@ public class NetworkModel<DatabaseModel extends IDatabaseModel> extends Abstract
 
 	public NetworkModel()
 	{
-		Service=new IPService();
+		Service=new DatabaseService();
 	}
 	protected String[] columnNames = {"IP Address", "Prefix","IP in Binary"};
 
 	protected ArrayList<NetworkAddress> resultSet;
 
-	protected IPService Service;
+	protected DatabaseService Service;
 	protected int rowsCount;
 
 	public void Load() {
-		resultSet = Service.GetNetworks();
+		resultSet = Service.GetNetworkAddresses();
 		this.rowsCount = this.resultSet.size();
 	}
 

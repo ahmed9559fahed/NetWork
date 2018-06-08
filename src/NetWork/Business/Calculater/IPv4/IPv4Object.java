@@ -1,7 +1,6 @@
 package NetWork.Business.Calculater.IPv4;
 import NetWork.Data.Database.Models.SubnetAddress;
 import NetWork.Data.Database.Service.DatabaseService;
-import NetWork.GUI.View.Formular.Subnet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -365,7 +364,7 @@ public class IPv4Object {
         return false;
     }
 
-    public boolean validateIPAddress() {
+     public boolean validateIPAddress() {
         String IPAddress = getIP();
 
         if (IPAddress.startsWith("0")) {
@@ -387,46 +386,50 @@ public class IPv4Object {
     }
 
 
-    public ArrayList<SubnetAddress> GetSubnets(String ip,int networkPrefix,int prefix,int networkId)
+    public ArrayList<SubnetAddress> GetSubnets(String ip,int prefix,int networkId)
     {
 
+        try {
+            int networkPrefix = DatabaseService.getService().GetNetworkAddressById(networkId).getPrefix();
 
+            DatabaseService.getService().DeleteAllSubnetByNetworkID(networkId);
+            int Hostbits = 32 - networkPrefix;
+            int subnetHostBits = 32 - prefix;
+            int subnetBits = Hostbits - subnetHostBits;
+            int subnetNumber = (int) Math.pow(2, subnetBits);
 
+            ArrayList<SubnetAddress> subnetses = new ArrayList<SubnetAddress>();
 
+            ArrayList<SubnetAddress> lastSubNet = DatabaseService.getService().GetSubnetAddresses(networkId, " order by id desc limit 1");
+            if (lastSubNet.size() == 0) {
+                SubnetAddress obj1 = new SubnetAddress();
+                obj1.setSubnetAddress(ip);
+                obj1.setPrefix(prefix);
+                subnetses.add(obj1);
+                IPv4Object object = new IPv4Object(ip + "/" + prefix);
+                String broadcast = object.getBroadcastAddress();
+                //int numberOfHosts = object.getNumberOfHosts();
+                String lastBroadcast = broadcast;
+                for (int i = 0; i < subnetNumber - 1; i++) {
+                    SubnetAddress obj = new SubnetAddress();
+                    obj.setSubnetAddress(GetNextIp(lastBroadcast));
+                    obj.setPrefix(prefix);
+                    obj.setNetworkId(networkId);
+                    subnetses.add(obj);
+                    IPv4Object iPv4Object = new IPv4Object(obj.getSubnetAddress() + "/" + obj.getPrefix());
+                    lastBroadcast = iPv4Object.getBroadcastAddress();
 
-        int Hostbits=32-networkPrefix;
-        int subnetHostBits=32-prefix;
-        int subnetBits=Hostbits-subnetHostBits;
-        int subnetNumber= (int) Math.pow(2,subnetBits);
+                }
 
-        ArrayList<SubnetAddress> subnetses=new ArrayList<SubnetAddress>();
-        ArrayList<SubnetAddress> lastSubNet= DatabaseService.getService().GetSubnetAddresses(networkId," order by id desc limit 1");
-        if(lastSubNet.size()==0) {
-            SubnetAddress obj1 = new SubnetAddress();
-            obj1.setSubnetAddress(ip);
-            obj1.setPrefix(prefix);
-            subnetses.add(obj1);
-            IPv4Object object = new IPv4Object(ip + "/" + prefix);
-            String broadcast = object.getBroadcastAddress();
-            //int numberOfHosts = object.getNumberOfHosts();
-            String lastBroadcast = broadcast;
-            for (int i = 0; i < subnetNumber-1; i++) {
-                SubnetAddress obj = new SubnetAddress();
-                obj.setSubnetAddress(GetNextIp(lastBroadcast));
-                obj.setPrefix(prefix);
-                subnetses.add(obj);
-                IPv4Object iPv4Object = new IPv4Object(obj.getSubnetAddress() + "/" + obj.getPrefix());
-                lastBroadcast = iPv4Object.getBroadcastAddress();
-
-            }
-
-            return subnetses;
-        }
-        else
-            {
+                return subnetses;
+            } else {
                 return null;
             }
-
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
     }
 
     private String GetNextIp(String ip)
@@ -436,7 +439,6 @@ public class IPv4Object {
         int oct2=Integer.parseInt(st[1]);
         int oct3=Integer.parseInt(st[2]);
         int oct4=Integer.parseInt(st[3]);
-
         if(oct4<255)
         {
             oct4++;
@@ -457,9 +459,6 @@ public class IPv4Object {
             oct1++;
             return oct1+"."+oct2+"."+oct3+"."+oct4;
         }
-
-
-
 
         return "";
     }

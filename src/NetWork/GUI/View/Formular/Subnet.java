@@ -1,5 +1,6 @@
 package NetWork.GUI.View.Formular;
 
+import NetWork.Business.Calculater.IPv4.IPv4Object;
 import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.Data.Database.Models.SubnetAddress;
 import NetWork.Data.Database.Service.DatabaseService;
@@ -13,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class Subnet extends FrameWindow {
@@ -21,6 +23,7 @@ public class Subnet extends FrameWindow {
 	protected int windowHeight = 370;
 
 	protected int networkId;
+
 
 	public Subnet(int networkId) {
 		this.networkId = networkId;
@@ -123,21 +126,31 @@ public class Subnet extends FrameWindow {
 		FlatButton btnSave = new FlatButton((String) null);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SubnetAddress subnet = new SubnetAddress();
-				subnet.setSubnetAddress(ipTextbox.getText());
+
 
 				try {
-					subnet.setPrefix(24);
+					SubnetAddress subnet = new SubnetAddress();
+					subnet.setSubnetAddress(ipTextbox.getText());
+					subnet.setPrefix(Integer.parseInt(prefixTextbox.getText()));subnet.setBitFormat(ipTextbox.getText());
+					subnet.setNetworkId(networkId);
+					IPv4Object obj=new IPv4Object(ipTextbox.getText()+"/"+prefixTextbox.getText());
+					ArrayList<SubnetAddress> subnets=obj.GetSubnets(obj.getIP(),Integer.parseInt(prefixTextbox.getText()),networkId);
+
+					for (SubnetAddress object :
+							subnets) {
+						DatabaseService.getService().AddSubnet(object);
+					}
+
+
 				} catch (Exception exception) {
 					prefixTextbox.displayErrorBorder();
-
+					ShowError(exception.getMessage());
 					return;
 				}
 
-				subnet.setBitFormat(ipTextbox.getText());
-				subnet.setNetworkId(networkId);
 
-				DatabaseService.getService().AddSubnet(subnet);
+
+
 
 				window.setVisible(false);
 				window.dispose();

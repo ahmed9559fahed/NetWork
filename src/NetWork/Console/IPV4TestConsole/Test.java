@@ -4,6 +4,7 @@ import NetWork.Business.Calculater.IPv4.IPv4Object;
 import NetWork.Data.Database.Models.SubnetAddress;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Test {
@@ -15,7 +16,7 @@ public class Test {
 
         IPv4Object ipv42 = new IPv4Object("192.168.1.0/28");
 
-        ArrayList<SubnetAddress> subnets= ipv42.GetSubnets("192.168.1.0",26,29,29);
+        ArrayList<SubnetAddress> subnets= ipv42.GetSubnets("192.168.1.0",29,29);
         //Get Network Ip
         System.out.println("NetworkIp: "+ipv42.getIP());
         //Get Broadcast
@@ -31,7 +32,7 @@ public class Test {
 
         System.out.println("Binary Of Broadcast: " + ipv42.GetBinary(ipv42.getBroadcastAddress()));
 
-/*
+
         //Get list of Avaliable IP Addresses
         List<String> availableIPs = ipv42.getAvailableIPs(Integer.parseInt(ipv42.getNumberOfHosts()+""));
         int counter=0;
@@ -41,7 +42,7 @@ public class Test {
                 System.out.print("n");
         }
 
-
+/*
 
 
         IPv4Object ipv43 = new IPv4Object("12.12.12.0/16");
