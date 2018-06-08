@@ -400,11 +400,11 @@ public class IPv4Object {
 
             ArrayList<SubnetAddress> subnetses = new ArrayList<SubnetAddress>();
 
-            ArrayList<SubnetAddress> lastSubNet = DatabaseService.getService().GetSubnetAddresses(networkId, " order by id desc limit 1");
-            if (lastSubNet.size() == 0) {
+
                 SubnetAddress obj1 = new SubnetAddress();
                 obj1.setSubnetAddress(ip);
                 obj1.setPrefix(prefix);
+                obj1.setNetworkId(networkId);
                 subnetses.add(obj1);
                 IPv4Object object = new IPv4Object(ip + "/" + prefix);
                 String broadcast = object.getBroadcastAddress();
@@ -419,12 +419,10 @@ public class IPv4Object {
                     IPv4Object iPv4Object = new IPv4Object(obj.getSubnetAddress() + "/" + obj.getPrefix());
                     lastBroadcast = iPv4Object.getBroadcastAddress();
 
-                }
+               }
 
                 return subnetses;
-            } else {
-                return null;
-            }
+
         }
         catch (Exception ex)
         {

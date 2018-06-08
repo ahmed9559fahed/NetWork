@@ -21,9 +21,9 @@ public class DatabaseService implements IDataBaseService {
     private static DatabaseService instance = null;
 
     protected String ServerHost = "localhost";
-    protected String ServerDatabase = "test";
+    protected String ServerDatabase = "ipcalculater";
     protected String ServerUsername = "root";
-    protected String ServerPassword = "root";
+    protected String ServerPassword = "";
 
     protected boolean connectedToDatabase = false;
 
@@ -198,7 +198,7 @@ public class DatabaseService implements IDataBaseService {
 
             NetworkAddress network = new NetworkAddress();
 
-            network.setId(result.getInt(networktId));
+            network.setId(result.getInt(1));
             network.setPrefix(result.getInt(3));
             network.setIPAddress(result.getString(2));
             network.setBitFormat(result.getString(4));
