@@ -18,7 +18,9 @@ public class FrameWindow extends JFrame {
 		this.setResizable(false);
 		
 		this.setSize(new Dimension(windowWidth, windowHeight));
-		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.WHITE);
 	}

@@ -45,7 +45,7 @@ public class CrunchifyGetPropertyValues {
             ConfigurationFile.User =User;
             ConfigurationFile.Password=Password;
 
-            result = "Company List = " + Server + ", " + Database + ", " + User+", "+Password;
+            result = "Database Info = " + Server + ", " + Database + ", " + User+", " + Password;
             System.out.println(result + "\nProgram Ran on " + time + " by user=" + User);
         } catch (Exception e) {
             System.out.println("Exception: " + e);

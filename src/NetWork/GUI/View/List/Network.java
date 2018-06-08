@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 public class Network extends ListView<NetworkModel<NetworkAddress>, NetworkAddress> {
 	public Network() {
 		this.setSize(new Dimension(490, 580));
+
 		//TODO Load network model to get ip and prefix to show in title
 		this.setTitle("List of networks");
 
@@ -82,15 +83,15 @@ public class Network extends ListView<NetworkModel<NetworkAddress>, NetworkAddre
 
 		table = new JTable(this.tableModel);
 
-		TableColumn column = null;
-		for (int i = 0; i < 3; i++) {
+		/*TableColumn column = null;
+		for (int i = 0; i < 2; i++) {
 			column = table.getColumnModel().getColumn(i);
 			if (i == 2) {
 				column.setPreferredWidth(200); //sport column is bigger
 			} else {
 				column.setPreferredWidth(50);
 			}
-		}
+		}*/
 
 		panel.add(table);
 

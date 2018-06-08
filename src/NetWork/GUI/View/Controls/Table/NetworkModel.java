@@ -16,7 +16,7 @@ public class NetworkModel<DatabaseModel extends IDatabaseModel> extends Abstract
 	{
 		Service=new DatabaseService();
 	}
-	protected String[] columnNames = {"IP Address", "Prefix","IP in Binary"};
+	protected String[] columnNames = {"IP Address", "Prefix"};
 
 	protected ArrayList<NetworkAddress> resultSet;
 
@@ -76,9 +76,6 @@ public class NetworkModel<DatabaseModel extends IDatabaseModel> extends Abstract
 			}
 			case 1: {
 				return network.getPrefix();
-			}
-			case 2: {
-				return network.getBitFormat();
 			}
 			default: {
 				return "";

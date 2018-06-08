@@ -70,7 +70,10 @@ public class Device extends ListView<DeviceModel<NetWork.Data.Database.Models.De
 			try {
 				NetWork.Data.Database.Models.Device device = this.getSelectedElement();
 
-				DatabaseService.getService().DeleteDeviceById(device.getId());
+				if(DatabaseService.getService().DeleteDeviceById(device.getId()) == false) {
+					this.ShowError("Bitte stellen Sie sicher, dass das Gerät keiner IP zugeordnet ist.");
+					return;
+				}
 
 				reloadTable();
 			} catch (ArrayIndexOutOfBoundsException aiofbException) {
