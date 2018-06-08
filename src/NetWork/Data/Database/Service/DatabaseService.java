@@ -110,7 +110,7 @@ public class DatabaseService implements IDataBaseService {
                 network.setId(result.getInt(1));
                 network.setIPAddress(result.getString(2));
                 network.setPrefix(result.getInt(3));
-                network.setBitFormat(result.getString(4));
+
 
                 networks.add(network);
             }
@@ -146,7 +146,7 @@ public class DatabaseService implements IDataBaseService {
                 subnet.setPrefix(result.getInt(4));
                 subnet.setSubnetAddress(result.getString(2));
                 subnet.setNetworkId(netWorkId);
-                subnet.setBitFormat(result.getString(5));
+
 
                 subnets.add(subnet);
             }
@@ -176,7 +176,7 @@ public class DatabaseService implements IDataBaseService {
             subnet.setPrefix(result.getInt(4));
             subnet.setSubnetAddress(result.getString(2));
             subnet.setNetworkId(subnetId);
-            subnet.setBitFormat(result.getString(5));
+
 
             result.close();
             stmt.close();
@@ -201,7 +201,7 @@ public class DatabaseService implements IDataBaseService {
             network.setId(result.getInt(1));
             network.setPrefix(result.getInt(3));
             network.setIPAddress(result.getString(2));
-            network.setBitFormat(result.getString(4));
+
 
             result.close();
             stmt.close();
@@ -230,7 +230,7 @@ public class DatabaseService implements IDataBaseService {
                 host.setId(result.getInt(1));
                 host.setSubnetId(subNetId);
                 host.setIPAddress(result.getString(2));
-                host.setBitFormat(result.getString(6));
+
                 host.setDescription(result.getString(5));
                 host.setDevice(result.getInt(4));
 
@@ -250,13 +250,13 @@ public class DatabaseService implements IDataBaseService {
     public int AddNetwork(NetworkAddress network)
     {
         try {
-            String insertTableSQL = "INSERT INTO network (ip , prefix , bit_format ) VALUES (?, ?, ?)";
+            String insertTableSQL = "INSERT INTO network (ip , prefix ) VALUES (?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, network.getIPAddress());
             statement.setInt(2, network.getPrefix());
-            statement.setString(3, network.getBitFormat());
+
 
             statement.execute();
 
@@ -282,15 +282,13 @@ public class DatabaseService implements IDataBaseService {
     @Override
     public int AddSubnet(SubnetAddress subnetAddress) {
         try {
-            String insertTableSQL = "INSERT INTO subnet (ip , network_id, prefix, bit_format ) VALUES (?, ?, ?, ?)";
+            String insertTableSQL = "INSERT INTO subnet (ip , network_id, prefix) VALUES (?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, subnetAddress.getSubnetAddress());
             statement.setInt(2, subnetAddress.getNetworkId());
             statement.setInt(3, subnetAddress.getPrefix());
-            statement.setString(4, subnetAddress.getBitFormat());
-
             statement.execute();
             ResultSet rs = statement.getGeneratedKeys();
 
