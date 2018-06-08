@@ -118,8 +118,8 @@ public class Subnet extends ListView<SubnetModel<SubnetAddress>, SubnetAddress> 
 			} catch (ArrayIndexOutOfBoundsException aiofbException) {
 				this.ShowError("Please select a valid network!");
 			}
-			
 		});
+		
 		fltbtnIpInfo.setText("IP Info");
 		fltbtnIpInfo.setBounds(264, 505, 220, 35);
 		getContentPane().add(fltbtnIpInfo);

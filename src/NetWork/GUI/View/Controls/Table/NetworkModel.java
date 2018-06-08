@@ -7,9 +7,9 @@ import NetWork.Data.Database.Service.DatabaseService;
 import NetWork.GUI.View.Controls.Interface.ITableModel;
 
 import javax.swing.table.AbstractTableModel;
-import java.awt.*;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class NetworkModel<DatabaseModel extends IDatabaseModel> extends AbstractTableModel implements ITableModel<DatabaseModel> {
 
 	public NetworkModel()

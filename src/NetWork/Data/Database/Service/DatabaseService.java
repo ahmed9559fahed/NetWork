@@ -21,12 +21,24 @@ public class DatabaseService implements IDataBaseService {
     private static DatabaseService instance = null;
 
     protected String ServerHost = "localhost";
-    protected String ServerDatabase = "ipcalculater";
+    protected String ServerDatabase = "test";
     protected String ServerUsername = "root";
-    protected String ServerPassword = "";
+    protected String ServerPassword = "root";
+
+    protected boolean connectedToDatabase = false;
+
+    protected Exception lastError;
 
     public DatabaseService() {
-        this.Connect();
+        this.connectedToDatabase = this.Connect();
+    }
+
+    public boolean isConnected() {
+        return this.connectedToDatabase;
+    }
+
+    public Exception getLastError() {
+        return this.lastError;
     }
 
     protected void finalize()
@@ -57,9 +69,13 @@ public class DatabaseService implements IDataBaseService {
 
             return true;
         }
-        catch (Exception ex)
+        catch (ClassNotFoundException ex)
         {
-            System.out.println(ex.getMessage());
+            this.lastError = ex;
+            return false;
+        }
+        catch (SQLException sqlException) {
+            this.lastError = sqlException;
             return false;
         }
     }
@@ -296,15 +312,70 @@ public class DatabaseService implements IDataBaseService {
     @Override
     public int AddHost(Host host) {
         try {
-            String insertTableSQL = "INSERT INTO host (IP , subnet_id, description, bit_format, device_id) VALUES (?, ?, ?, ?, ?)";
+            String insertTableSQL = "INSERT INTO host (IP , subnet_id, description, device_id) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, host.getIPAddress());
             statement.setInt(2, host.getSubnetId());
             statement.setString(3, host.getDescription());
-            statement.setString(4, host.getBitFormat());
-            statement.setInt(5, host.getDevice());
+            statement.setInt(4, host.getDevice());
 
+            statement.execute();
+
+            ResultSet rs = statement.getGeneratedKeys();
+
+            int generatedKey = 0;
+            if (rs.next()) {
+                generatedKey = rs.getInt(1);
+            }
+
+            rs.close();
+            statement.close();
+
+            return generatedKey;
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+            return -1;
+        }
+    }
+    
+    public int AddDevice(Device device) {
+        try {
+            String insertTableSQL = "INSERT INTO device (name) VALUES (?)";
+            PreparedStatement statement = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, device.getName());
+
+            statement.execute();
+
+            ResultSet rs = statement.getGeneratedKeys();
+
+            int generatedKey = 0;
+            if (rs.next()) {
+                generatedKey = rs.getInt(1);
+            }
+
+            rs.close();
+            statement.close();
+
+            return generatedKey;
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+            return -1;
+        }
+    }
+
+    public int UpdateDevice(Device device) {
+        try {
+            String insertTableSQL = "UPDATE device SET name = ? where id = ?";
+            PreparedStatement statement = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, device.getName());
+            statement.setInt(2, device.getId());
             statement.execute();
 
             ResultSet rs = statement.getGeneratedKeys();
@@ -431,12 +502,29 @@ public class DatabaseService implements IDataBaseService {
         }
     }
 
+    public boolean DeleteDeviceById(int deviceID) {
+        try {
+            String deleteTableSQL = "DELETE FROM device where id=" + deviceID;
+
+            Statement stmt = connection.createStatement();
+            stmt.execute(deleteTableSQL);
+
+            stmt.close();
+
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
     @Override
     public Device GetDeviceById(int deviceId)
     {
         try {
             Statement stmt = connection.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * FROM Device where id ="+deviceId);
+            ResultSet result = stmt.executeQuery("SELECT * FROM device where id="+deviceId);
+            result.first();
 
             Device device = new Device();
             device.setId(deviceId);
@@ -450,7 +538,33 @@ public class DatabaseService implements IDataBaseService {
             System.out.println(ex.getMessage());
             return null;
         }
+    }
 
+    public ArrayList<Device> GetDeviceList()
+    {
+        try {
+            ArrayList<Device> devices = new ArrayList<>();
+
+            Statement stmt = connection.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM device");
+
+            while (result.next())
+            {
+                Device device = new Device();
+
+                device.setId(result.getInt(1));
+                device.setName(result.getString(2));
+
+                devices.add(device);
+            }
+
+            result.close();
+            stmt.close();
+            return devices;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
     }
 
 }
