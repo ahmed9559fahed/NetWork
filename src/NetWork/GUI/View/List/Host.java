@@ -1,5 +1,6 @@
 package NetWork.GUI.View.List;
 
+import NetWork.Data.Database.Models.NetworkAddress;
 import NetWork.Data.Database.Models.SubnetAddress;
 import NetWork.Data.Database.Service.DatabaseService;
 import NetWork.GUI.View.Controls.FlatButton;
@@ -20,13 +21,22 @@ public class Host extends ListView<HostModel<NetWork.Data.Database.Models.Host>,
 	protected int networkId;
 	protected int subnetId;
 
+	protected SubnetAddress CurrentSubnet;
+	protected NetworkAddress CurrentNetwork;
+
 	public Host(int networkId, int subnetId) {
 		this.networkId = networkId;
 		this.subnetId = subnetId;
 
 		//TODO load network and subnet to get title
-		this.setTitle("List of IPs for " + String.valueOf(this.networkId) + " -> " + String.valueOf(this.subnetId));
+		CurrentNetwork = DatabaseService.getService().GetNetworkAddressById(this.networkId);
+		CurrentSubnet = DatabaseService.getService().GetSubnetAddressById(this.subnetId);
 
+		this.setTitle("List of Subnets for "
+				+ CurrentNetwork.getIPAddress() + "/" + CurrentNetwork.getPrefix()
+				+ " => "
+				+ CurrentSubnet.getSubnetAddress() + "/" + CurrentSubnet.getPrefix()
+		);
 
 		this.tableModel = new HostModel<>(this.subnetId);
 		this.reloadTable();
@@ -97,8 +107,7 @@ public class Host extends ListView<HostModel<NetWork.Data.Database.Models.Host>,
 		FlatButton btnSubnetInfo = new FlatButton((String) null);
 		btnSubnetInfo.addActionListener(e -> {
 			try {
-				SubnetAddress subnet = DatabaseService.getService().GetSubnetAddressById(this.subnetId);
-				IPInfo ipInfo = new IPInfo(subnet);
+				IPInfo ipInfo = new IPInfo(CurrentSubnet);
 
 				ipInfo.setVisible(true);
 			} catch (ArrayIndexOutOfBoundsException aiofbException) {
