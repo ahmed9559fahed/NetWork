@@ -6,7 +6,6 @@ CREATE TABLE network (
     id          int             NOT NULL AUTO_INCREMENT,
     ip          varchar(255)    NOT NULL,
     prefix      varchar(255),
-    bit_format  varchar(255),
 
     PRIMARY KEY (id)
 );
@@ -14,8 +13,7 @@ CREATE TABLE subnet (
     id              int             NOT NULL AUTO_INCREMENT,
     ip              varchar(255)    NOT NULL,
     network_id      int,
-    prefix           int,
-    bit_format      varchar(255),
+    prefix          int,
 
 	PRIMARY KEY (ID),
 	FOREIGN KEY (network_id) REFERENCES network(id)
@@ -34,7 +32,6 @@ CREATE TABLE host (
     subnet_id       int,
     device_id       int,
     description     varchar(255),
-    bit_format      varchar(255),
 
 	PRIMARY KEY (id),
 	FOREIGN KEY (device_id) REFERENCES device(id),
